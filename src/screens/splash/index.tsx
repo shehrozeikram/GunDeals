@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { View } from 'react-native';
+import { ImageBackground, StatusBar, View } from 'react-native';
 import RootStackParamList from '../../types/navigation-types/root-stack';
 import styles from './styles';
 type props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector } from './../../hooks/use-store';
 import Regular from '../../typography/regular-text';
 import { SERVICES } from '../../utils';
 import { STORAGEKEYS } from '../../config/constants';
+import { bg } from '../../assets/images';
+import { SplashIcon } from '../../assets/icons';
 
 const Splash = (props: props) => {
   const { navigation } = props;
@@ -35,7 +37,10 @@ const Splash = (props: props) => {
 
   return (
     <View style={{ ...styles.container }}>
-      <Regular style={styles.welcomeText} label={'Welcome to to-do'} />
+      <ImageBackground source={bg} style={{ height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+        <StatusBar translucent backgroundColor='transparent' />
+        <SplashIcon />
+      </ImageBackground>
     </View>
   );
 };

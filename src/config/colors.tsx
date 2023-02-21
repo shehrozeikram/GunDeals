@@ -4,10 +4,12 @@
 export const colors = {
   border: '#707070',
   black: '#000000',
+  B2E3645: "#2E3645",
   white: '#ffffff',
   transparent: 'transparent',
+  bg: '#DCDCDC',
   primary: '#8257e5', //'#5586FF'
-  secondary: '#F2F2F2', //'#F2F2F2',
+  secondary: '#616978', //'#F2F2F2',
   shadow: {
     shadowColor: '#000',
     shadowOffset: {
