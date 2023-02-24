@@ -2,13 +2,13 @@
 import * as React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { horizontalAnimation } from '../utils';
-import Splash from '../screens/splash';
-import RootStackParamList from '../types/navigation-types/root-stack';
+import { colors } from '../config/colors';
 import Login from '../screens/login';
 import Signup from '../screens/signup';
+import RootStackParamList from '../types/navigation-types/root-stack';
+import { horizontalAnimation } from '../utils';
 import DrawerNavigation from './drawer-navigation';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -17,7 +17,7 @@ export const RootNavigator = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar
         translucent={false}
-        backgroundColor={'#ffffff'}
+        backgroundColor={colors.primary}
         barStyle={Platform?.OS === 'ios' ? 'default' : 'dark-content'}
       />
       <Stack.Navigator

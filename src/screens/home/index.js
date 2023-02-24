@@ -10,7 +10,7 @@ const Home = (props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation?.toggleDrawer()}>
-        <Regular label={'jdjfjsd'} />
+        <Regular label={'Open drawer'} style={{ alignSelf: 'center', marginTop: 50 }} />
       </TouchableOpacity>
     </View>
   );

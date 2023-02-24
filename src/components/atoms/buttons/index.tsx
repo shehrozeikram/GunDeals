@@ -7,10 +7,10 @@ import { Loader } from '../loader'
 type props = {
     onPress: () => void
     title: string
-    disabled?:boolean
-    loading?:boolean
-    textStyle?:StyleProp<ViewStyle>
-    containerStyle?:StyleProp<ViewStyle>
+    disabled?: boolean
+    loading?: boolean
+    textStyle?: StyleProp<ViewStyle>
+    containerStyle?: StyleProp<ViewStyle>
 }
 export const PlusButton = (props: props) => {
     const {
@@ -19,10 +19,11 @@ export const PlusButton = (props: props) => {
     } = props;
     return (
         <TouchableOpacity style={styles.plusContainer} onPress={onPress}>
-            <Regular style={styles.plusText} label={'+'}/>
+            <Regular style={styles.plusText} label={'+'} />
         </TouchableOpacity>
     )
 };
+
 export const PrimaryButton = (props: props) => {
     const {
         onPress,
@@ -33,42 +34,71 @@ export const PrimaryButton = (props: props) => {
         containerStyle,
     } = props;
     return (
-        <TouchableOpacity disabled={disabled||loading} style={[styles.primaryContainer,containerStyle,{backgroundColor:`${colors.primary}${disabled?'50':''}`,}]} onPress={onPress}>
-            {loading?
-            <Loader/>
-            :<Regular style={[styles.primaryText,textStyle]} label={title}/>}
+        <TouchableOpacity disabled={disabled || loading} style={[styles.primaryContainer, containerStyle, { backgroundColor: `${colors.primary}${disabled ? '50' : ''}`, }]} onPress={onPress}>
+            {loading ?
+                <Loader />
+                : <Regular style={[styles.primaryText, textStyle]} label={title} />}
+        </TouchableOpacity>
+    )
+};
+export const SecondayButton = (props: props) => {
+    const {
+        onPress,
+        title,
+        disabled,
+        loading,
+        textStyle,
+        containerStyle,
+    } = props;
+    return (
+        <TouchableOpacity disabled={disabled || loading} style={[styles.secContainer, containerStyle, { backgroundColor: `${colors.aqua}${disabled ? '50' : ''}`, }]} onPress={onPress}>
+            {loading ?
+                <Loader />
+                : <Regular style={[styles.secondaryText, textStyle]} label={title} />}
         </TouchableOpacity>
     )
 };
 
 
 const styles = StyleSheet.create({
-    plusContainer:{
-       position:'absolute',
-       bottom:mvs(40),
-       ...colors.shadow,
-       backgroundColor:colors.primary,
-       right:mvs(20),
-       justifyContent:'center',
-       alignItems:'center',
-       width:mvs(50),
-       height:mvs(50),
-       borderRadius:mvs(50/2),
+    plusContainer: {
+        position: 'absolute',
+        bottom: mvs(40),
+        ...colors.shadow,
+        backgroundColor: colors.primary,
+        right: mvs(20),
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: mvs(50),
+        height: mvs(50),
+        borderRadius: mvs(50 / 2),
     },
-    plusText:{
-        color:colors.white,
-        fontSize:mvs(25),
-        alignSelf:'center',
+    plusText: {
+        color: colors.white,
+        fontSize: mvs(25),
+        alignSelf: 'center',
     },
-    primaryContainer:{
-       justifyContent:'center',
-       alignItems:'center',
-       backgroundColor:colors.primary,
-       width:'100%',
-       height:mvs(50),
-       borderRadius:mvs(15),
+    primaryContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.primary,
+        width: '100%',
+        height: mvs(50),
+        borderRadius: mvs(15),
     },
-    primaryText:{
-        color:colors.white,
+    secContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.primary,
+        width: '40%',
+        height: mvs(36),
+        borderRadius: mvs(15),
+    },
+    primaryText: {
+        color: colors.white,
+    },
+    secondaryText: {
+        color: colors.black,
+        fontSize: mvs(12),
     }
 })
