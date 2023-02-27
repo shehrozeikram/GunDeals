@@ -10,6 +10,11 @@ const styles = StyleSheet.create({
     contentContainerStyle: {
         flex: 1,
         padding: mvs(20)
+    },
+    body:{
+        flex:1,
+        paddingVertical:mvs(12),
+        paddingHorizontal:mvs(21)
     }
 });
 export default styles;

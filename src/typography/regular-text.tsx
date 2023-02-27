@@ -5,6 +5,7 @@ import {colors} from '../config/colors';
 import { mvs } from '../config/metrices';
 type FcProps = {
   label?: string | number;
+  fontStyle?: string;
   numberOfLines?: number;
   fontSize?: number;
   color?: ColorValue | undefined
@@ -19,13 +20,14 @@ const Regular: React.FC<FcProps> = ({
   numberOfLines,
   children,
   style,
+  fontStyle='normal',
   ...props
 }) => {
   return (
     <Text
       numberOfLines={numberOfLines}
       {...props}
-      style={[{...styles.label, color: color, fontSize: fontSize,},style]}>
+      style={[{...styles.label, color: color, fontSize: fontSize,fontStyle:fontStyle},style]}>
       {label}
       {children}
     </Text>

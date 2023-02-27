@@ -2,11 +2,11 @@
  * @providesModule Fonts
  */
  const fonts = {
-    light: 'Poppins-Light',
-    regular: 'Poppins-Regular',
-    medium: 'Poppins-Medium',
-    semiBold: 'Poppins-Bold',
-    bold: 'Poppins-Bold',
+    light: 'DMSans-Light',
+    regular: 'DMSans-Regular',
+    medium: 'DMSans-Medium',
+    semiBold: 'DMSans-Bold',
+    bold: 'DMSans-Bold',
   };
   export default fonts;
   

@@ -39,5 +39,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bold,
     fontSize: mvs(15),
     color: colors.black, //default color
+    fontWeight:'bold'
   },
 });
