@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
-import { mvs } from '../../config/metrices';
-import styles from './styles';
-import { colors } from '../../config/colors';
-import { PrimaryButton } from '../../components/atoms/buttons';
-import Regular from '../../typography/regular-text';
+import { TextInput, View } from 'react-native';
 import { Rating } from 'react-native-elements';
-import { Row } from '../../components/atoms/row';
 import { Reply } from '../../assets/icons';
+import { PrimaryButton } from '../../components/atoms/buttons';
+import { Row } from '../../components/atoms/row';
 import { TouchableRow } from '../../components/atoms/touchable-row';
+import { colors } from '../../config/colors';
+import { mvs } from '../../config/metrices';
+import Regular from '../../typography/regular-text';
+import styles from './styles';
 const Comments = props => {
   return (
     <View style={styles.container}>
