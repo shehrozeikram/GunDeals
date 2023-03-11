@@ -1,16 +1,16 @@
 import React from 'react';
-import {TouchableOpacity, View, FlatList} from 'react-native';
-import {CaretDown} from '../../assets/icons';
+import { TouchableOpacity, View, FlatList } from 'react-native';
+import { CaretDown } from '../../assets/icons';
 import CustomHeader from '../../components/atoms/headers/custom-header';
-import {Row} from '../../components/atoms/row';
+import { Row } from '../../components/atoms/row';
 import ProductItem from '../../components/product/product-item';
-import {mvs} from '../../config/metrices';
-import {useAppSelector} from '../../hooks/use-store';
+import { mvs } from '../../config/metrices';
+import { useAppSelector } from '../../hooks/use-store';
 import Medium from '../../typography/medium-text';
 import Regular from '../../typography/regular-text';
 import styles from './styles';
 const Home = props => {
-  const {navigation} = props;
+  const { navigation } = props;
 
   return (
     <View style={styles.container}>
@@ -19,7 +19,7 @@ const Home = props => {
         onMenuClick={() => navigation?.toggleDrawer()}
       />
       <View style={styles.body}>
-        <Row style={{alignItems: 'center'}}>
+        <Row style={{ alignItems: 'center' }}>
           <Medium label={'Showing all categories'} fontSize={mvs(14)} />
           <TouchableOpacity>
             <CaretDown />
@@ -32,7 +32,7 @@ const Home = props => {
             marginTop: mvs(15),
           }}
           data={[1, 2, 3, 4, 5, 6, 7, 8]}
-          renderItem={({item}) => <ProductItem />}
+          renderItem={({ item }) => <ProductItem onPress={() => props?.navigation?.navigate('ProductDetails')} />}
         />
       </View>
     </View>

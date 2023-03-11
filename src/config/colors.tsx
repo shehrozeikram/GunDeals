@@ -10,6 +10,8 @@ export const colors = {
   bg: '#DCDCDC',
   primary: '#2E3645', //'#5586FF'
   secondary: '#EDF0F2', //'#F2F2F2',
+  F5F5F6: '#F5F5F6',
+  tab: '#D6DADE',
   aqua: '#CFDBE7',
   shadow: {
     shadowColor: '#000',
