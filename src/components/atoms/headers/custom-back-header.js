@@ -15,14 +15,10 @@ import Bold from '../../../typography/bold-text';
 import Regular from '../../../typography/regular-text';
 
 const CustomBackHeader = ({
-  style,
-  title,
-  onMenuClick,
-  onThreeLinesMenuClick,
 }) => {
   const navigation = useNavigation();
   return (
-    <ImageBackground source={HeaderBg} style={[styles.container, style]}>
+    <ImageBackground source={HeaderBg} style={[styles.container]}>
       <View style={{ alignItems: 'center', flex: 1 }}>
         <HeaderLogo />
       </View>

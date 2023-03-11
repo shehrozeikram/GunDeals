@@ -14,6 +14,7 @@ import ProductDetails from '../screens/product-details';
 import Prices from '../screens/prices-screen';
 import Discounts from '../screens/discount-screen';
 import Comments from '../screens/comments-screen';
+import TopTabNavigator from './top-tab-navigation';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
@@ -25,7 +26,7 @@ export const RootNavigator = () => {
         barStyle={Platform?.OS === 'ios' ? 'default' : 'dark-content'}
       />
       <Stack.Navigator
-        initialRouteName="Comments"
+        initialRouteName="TopTabNavigator"
         screenOptions={horizontalAnimation}>
         <Stack.Screen name="Splash" component={DrawerNavigation} />
         <Stack.Group>
@@ -36,6 +37,7 @@ export const RootNavigator = () => {
         <Stack.Screen name="Prices" component={Prices} />
         <Stack.Screen name="Discounts" component={Discounts} />
         <Stack.Screen name="Comments" component={Comments} />
+        <Stack.Screen name="TopTabNavigator" component={TopTabNavigator} />
 
       </Stack.Navigator>
     </SafeAreaView>
