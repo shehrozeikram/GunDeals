@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         padding: mvs(20)
     },
     body: {
-        flex: 1,
+        //flex: 1,
         // paddingVertical: mvs(12),
         // paddingHorizontal: mvs(21),
         backgroundColor: colors.bg
@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
         paddingVertical: mvs(15),
         alignSelf: 'center'
     },
-    bottom: { position: 'absolute', bottom: 0, width: '100%', paddingBottom: mvs(30) }
+    bottom: { 
+        position: 'absolute', 
+        bottom: 0, width: '100%',
+        paddingVertical: mvs(15),
+        backgroundColor:colors.white
+    }
 });
 export default styles;

@@ -33,8 +33,16 @@ const PrimaryInput = (props: props) => {
     } = props;
     return (
         <View style={[styles.container, containerStyle]}>
-            <Regular style={[styles.labelStyle, labelStyle]} label={label} />
-            <TextInput onBlur={onBlur} keyboardType={keyboardType} secureTextEntry={secureTextEntry} value={value} placeholder={placeholder} onChangeText={onChangeText} style={[styles.textInput, style]} />
+           {label && ( <Regular style={[styles.labelStyle, labelStyle]} label={label} />)}
+            <TextInput 
+            onBlur={onBlur} 
+            keyboardType={keyboardType} 
+            secureTextEntry={secureTextEntry} 
+            value={value}
+            placeholder={placeholder} 
+            placeholderTextColor={colors.lightGray}
+            onChangeText={onChangeText} 
+            style={[styles.textInput, style]} />
         </View>
     )
 };

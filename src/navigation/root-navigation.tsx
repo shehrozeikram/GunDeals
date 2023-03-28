@@ -26,7 +26,7 @@ export const RootNavigator = () => {
         barStyle={Platform?.OS === 'ios' ? 'default' : 'dark-content'}
       />
       <Stack.Navigator
-        initialRouteName="TopTabNavigator"
+        initialRouteName="Login"
         screenOptions={horizontalAnimation}>
         <Stack.Screen name="Splash" component={DrawerNavigation} />
         <Stack.Group>

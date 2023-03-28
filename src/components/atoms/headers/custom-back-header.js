@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -7,22 +7,33 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { HeaderLogo, LoginIcon, MenuSearch, Stand, ThreeLinesMenu } from '../../../assets/icons';
-import { HeaderBg } from '../../../assets/images';
-import { colors } from '../../../config/colors';
-import { mvs } from '../../../config/metrices';
+import {
+  Back,
+  HeaderLogo,
+  LoginIcon,
+  MenuSearch,
+  Stand,
+  ThreeLinesMenu,
+} from '../../../assets/icons';
+import {HeaderBg} from '../../../assets/images';
+import {colors} from '../../../config/colors';
+import {mvs} from '../../../config/metrices';
 import Bold from '../../../typography/bold-text';
 import Regular from '../../../typography/regular-text';
 
-const CustomBackHeader = ({
-}) => {
+const CustomBackHeader = ({showBack = false}) => {
   const navigation = useNavigation();
   return (
     <ImageBackground source={HeaderBg} style={[styles.container]}>
-      <View style={{ alignItems: 'center', flex: 1 }}>
+      {showBack && (
+        <TouchableOpacity onPress={() => navigation?.goBack()}>
+          <Back />
+        </TouchableOpacity>
+      )}
+      <View style={{alignItems: 'center', flex: 1}}>
         <HeaderLogo />
       </View>
-      <TouchableOpacity style={{ marginHorizontal: mvs(10) }}>
+      <TouchableOpacity style={{marginHorizontal: mvs(10)}}>
         <Stand />
       </TouchableOpacity>
     </ImageBackground>

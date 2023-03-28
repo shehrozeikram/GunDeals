@@ -67,7 +67,7 @@ function MyTabBar({ state, descriptors, navigation, position }: any) {
                             style={{
                                 color: colors.black,
                                 fontFamily: fonts.medium,
-                                fontSize: mvs(17),
+                                fontSize: mvs(12),
                             }}
                         >
                             {label}

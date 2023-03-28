@@ -15,7 +15,6 @@ const TopTabNavigator = (props: any) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <CustomBackHeader />
             <Tab.Navigator
                 tabBar={(props: any) => <MyTabBar {...props} />}
                 screenOptions={{
@@ -24,14 +23,13 @@ const TopTabNavigator = (props: any) => {
                     tabBarIndicatorStyle: {
                         backgroundColor: colors.primary,
                     },
-                }}
-            >
+                }}>
                 <Tab.Screen
                     name="Morning"
                     component={Prices}
                     options={{
                         // title: stateData?.Morning?.timing,
-                        tabBarLabel: "Morning",
+                        tabBarLabel: "PRICES",
                     }}
                 />
                 <Tab.Screen
@@ -39,7 +37,7 @@ const TopTabNavigator = (props: any) => {
                     component={Comments}
                     options={{
                         // title: stateData?.Afternoon?.timing,
-                        tabBarLabel: "Afternoon",
+                        tabBarLabel: "COMMENTS (3)",
                     }}
                 />
                 <Tab.Screen
@@ -47,7 +45,7 @@ const TopTabNavigator = (props: any) => {
                     component={Discounts}
                     options={{
                         // title: stateData?.Evening?.timing,
-                        tabBarLabel: "Evening",
+                        tabBarLabel: "DISCOUNTS (5)",
                         tabBarStyle: { backgroundColor: "powderblue" },
                     }}
                 />

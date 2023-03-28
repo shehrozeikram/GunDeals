@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
     primaryContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.primary,
+        backgroundColor: colors.black,
         width: '100%',
         height: mvs(50),
-        borderRadius: mvs(15),
+        borderRadius: mvs(6),
     },
     secContainer: {
         justifyContent: 'center',
