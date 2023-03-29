@@ -7,13 +7,16 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {MenuSearch, Stand, ThreeLinesMenu} from '../../../assets/icons';
+import {
+  HeaderLogo,
+  MenuSearch,
+  Stand,
+  ThreeLinesMenu,
+} from '../../../assets/icons';
 import {HeaderBg} from '../../../assets/images';
 import {colors} from '../../../config/colors';
 import {mvs} from '../../../config/metrices';
 import Bold from '../../../typography/bold-text';
-import Regular from './../../../typography/regular-text';
-
 const CustomAppHeader = ({
   style,
   title,
@@ -27,7 +30,11 @@ const CustomAppHeader = ({
         <MenuSearch />
       </TouchableOpacity>
       <View style={{alignItems: 'center', flex: 1}}>
-        <Bold style={[styles.title]} label={title} fontSize={mvs(16)} />
+        {title == 'Home' ? (
+          <HeaderLogo style={{marginLeft: mvs(15)}} />
+        ) : (
+          <Bold style={[styles.title]} label={title} fontSize={mvs(16)} />
+        )}
       </View>
       <TouchableOpacity style={{marginHorizontal: mvs(10)}}>
         <Stand />
@@ -51,6 +58,8 @@ const styles = StyleSheet.create({
     fontSize: mvs(16),
     color: colors.white,
     marginLeft: mvs(7),
+    fontStyle: 'italic',
+    textTransform: 'uppercase',
   },
   back: {
     marginRight: mvs(20),

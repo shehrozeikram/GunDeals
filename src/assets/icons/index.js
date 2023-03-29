@@ -35,3 +35,4 @@ export {default as Reply} from './reply.svg';
 export {default as Like} from './like.svg';
 export {default as UnLike} from './unlike.svg';
 export {default as Back} from './back.svg';
+export {default as Cross} from './cross.svg';

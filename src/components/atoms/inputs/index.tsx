@@ -1,6 +1,6 @@
 import React from 'react'
-import { KeyboardTypeOptions, NativeSyntheticEvent, StyleProp, StyleSheet, TextInput, TextInputFocusEventData, View, ViewStyle } from 'react-native'
-import { SearchIcon } from '../../../assets/icons'
+import { KeyboardTypeOptions, NativeSyntheticEvent, StyleProp, StyleSheet, TextInput, TextInputFocusEventData, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { Cross, SearchIcon } from '../../../assets/icons'
 import { colors } from '../../../config/colors'
 import { mvs } from '../../../config/metrices'
 import Regular from '../../../typography/regular-text'
@@ -16,6 +16,7 @@ type props = {
     secureTextEntry?: boolean | undefined
     keyboardType?: KeyboardTypeOptions | undefined
     onBlur?: ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void) | undefined
+    onCrossClick?:undefined
 }
 const PrimaryInput = (props: props) => {
     const {
@@ -59,8 +60,8 @@ export const SearchInput = (props: props) => {
         containerStyle,
         secureTextEntry,
         keyboardType,
-        onBlur
-
+        onBlur,
+        onCrossClick
     } = props;
     return (
         <Row style={[styles.searchContainer, containerStyle]}>
@@ -69,6 +70,10 @@ export const SearchInput = (props: props) => {
                 secureTextEntry={secureTextEntry} value={value}
                 placeholder={placeholder} onChangeText={onChangeText}
                 style={[styles.searchTextInput, style]} />
+             {value &&
+             (<TouchableOpacity onPress={onCrossClick}>
+                <Cross/>
+             </TouchableOpacity>)}   
         </Row>
     )
 };

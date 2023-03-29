@@ -1,12 +1,14 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { ImageBackground, StatusBar, TextInput, View,TouchableOpacity ,ScrollView} from 'react-native';
-import { HeaderLogo } from '../../assets/icons';
+import { Back, HeaderLogo } from '../../assets/icons';
 import { bg, BottomBlack } from '../../assets/images';
 import { PrimaryButton } from '../../components/atoms/buttons';
 import AppHeader from '../../components/atoms/headers/index';
 import PrimaryInput from '../../components/atoms/inputs';
 import { KeyboardAvoidScrollview } from '../../components/atoms/keyboard-avoid-scrollview';
+import { Row } from '../../components/atoms/row';
+import { TouchableRow } from '../../components/atoms/touchable-row';
 import { colors } from '../../config/colors';
 import { mvs } from '../../config/metrices';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
@@ -29,9 +31,16 @@ const Login = (props: props) => {
     <View style={{ ...styles.container }}>
     <ImageBackground source={bg} style={{ height: '100%', width: '100%',paddingTop:mvs(20) }}>
       <StatusBar translucent backgroundColor='transparent' />
+      <Row style={{paddingLeft:mvs(10),marginBottom:mvs(10)}}>
+         <TouchableOpacity style={{marginTop:mvs(6)}} onPress={()=>navigation?.goBack()}>
+              <Back/>
+         </TouchableOpacity>
+         <View style={{flex:1}}>
+           <HeaderLogo style={{alignSelf:'center'}}/>
+         </View>
+      </Row>
       <ScrollView contentContainerStyle={{flexGrow:1}} showsVerticalScrollIndicator={false}>
-      <HeaderLogo style={{alignSelf:'center'}}/>
-      <View style={styles.login}>
+       <View style={styles.login}>
          <TextInput placeholder='Username or e-mail address' style={{borderBottomColor:colors.lightGray,borderBottomWidth:0.5}}/>
          <TextInput placeholder='Password' style={{borderBottomColor:colors.lightGray,borderBottomWidth:0.5,marginTop:mvs(12)}}/>
          <PrimaryButton title='Login' containerStyle={{marginTop:mvs(45)}}/>

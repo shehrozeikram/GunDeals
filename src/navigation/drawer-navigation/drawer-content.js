@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   ScrollView,
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -27,182 +28,258 @@ import Regular from '../../typography/regular-text';
 import * as SVGS from '../../assets/icons';
 import {PrimaryButton, SecondayButton} from '../../components/atoms/buttons';
 import {TouchableRow} from '../../components/atoms/touchable-row';
+import DrawerProduct from '../../components/product/drawer-product';
 const CustomDrawerContent = props => {
+  const [search, setSearch] = useState('');
   return (
-    <View style={{flex: 1, backgroundColor: colors.white}}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: search?.length < 1 ? colors.white : '#F5F6F8',
+      }}>
       <ImageBackground
         source={drawer_top_bg}
-        style={{height: mvs(220), width: '100%', paddingVertical: mvs(17)}}>
+        style={{
+          height: search?.length < 1 ? mvs(220) : mvs(100),
+          width: '100%',
+          paddingVertical: mvs(17),
+        }}>
         <View style={{paddingHorizontal: mvs(20)}}>
-          <SearchInput />
-        </View>
-        <View>
-          <Row style={styles.mainRow}>
-            <TouchableRow style={styles.row}>
-              <HomeIcon />
-              <Medium label={'Home'} style={styles.label} />
-            </TouchableRow>
-            <TouchableRow style={styles.row}>
-              <StarIcon />
-              <Medium label={'Popular'} style={styles.label} />
-            </TouchableRow>
-          </Row>
-          <LinearGradient
-            colors={['#9EA2A800', '#9EA2A8', '#9EA2A800']}
-            style={styles.linearGradient}
-          />
-          <Row style={styles.mainRow}>
-            <TouchableRow style={styles.row}>
-              <DateIcon />
-              <Medium label={'Today'} style={styles.label} />
-            </TouchableRow>
-            <TouchableRow style={styles.row}>
-              <CouponIcon />
-              <Medium label={'Coupon'} style={styles.label} />
-            </TouchableRow>
-          </Row>
-          <LinearGradient
-            colors={['#9EA2A800', '#9EA2A8', '#9EA2A800']}
-            style={styles.linearGradientv}
+          <SearchInput
+            value={search}
+            onChangeText={val => setSearch(val)}
+            onCrossClick={() => setSearch('')}
           />
         </View>
+        {search?.length < 1 && (
+          <View>
+            <Row style={styles.mainRow}>
+              <TouchableRow
+                style={styles.row}
+                onPress={() =>
+                  props?.navigation?.navigate('Home', {type: 'Home'})
+                }>
+                <HomeIcon />
+                <Medium label={'Home'} style={styles.label} />
+              </TouchableRow>
+              <TouchableRow
+                style={styles.row}
+                onPress={() =>
+                  props?.navigation?.navigate('Home', {type: 'Popular'})
+                }>
+                <StarIcon />
+                <Medium label={'Popular'} style={styles.label} />
+              </TouchableRow>
+            </Row>
+            <LinearGradient
+              colors={['#9EA2A800', '#9EA2A8', '#9EA2A800']}
+              style={styles.linearGradient}
+            />
+            <Row style={styles.mainRow}>
+              <TouchableRow
+                style={styles.row}
+                onPress={() =>
+                  props?.navigation?.navigate('Home', {type: 'Today'})
+                }>
+                <DateIcon />
+                <Medium label={'Today'} style={styles.label} />
+              </TouchableRow>
+              <TouchableRow
+                style={styles.row}
+                onPress={() => props?.navigation?.navigate('Discounts')}>
+                <CouponIcon />
+                <Medium label={'Coupon'} style={styles.label} />
+              </TouchableRow>
+            </Row>
+            <LinearGradient
+              colors={['#9EA2A800', '#9EA2A8', '#9EA2A800']}
+              style={styles.linearGradientv}
+            />
+          </View>
+        )}
       </ImageBackground>
-      <View
-        style={{backgroundColor: colors.primary, paddingHorizontal: mvs(25)}}>
-        <TouchableRow style={{alignItems: 'center', paddingVertical: mvs(15)}}>
-          <Row style={{justifyContent: 'flex-start'}}>
-            <DateStar />
-            <Medium
-              label={'Top this week'}
-              style={{marginHorizontal: mvs(15), color: colors.white}}
+      {search?.length < 1 && (
+        <View
+          style={{backgroundColor: colors.primary, paddingHorizontal: mvs(25)}}>
+          <TouchableRow
+            onPress={() => props?.navigation?.navigate('Home')}
+            style={{alignItems: 'center', paddingVertical: mvs(15)}}>
+            <Row style={{justifyContent: 'flex-start'}}>
+              <DateStar />
+              <Medium
+                label={'Top this week'}
+                style={{marginHorizontal: mvs(15), color: colors.white}}
+              />
+            </Row>
+            <RightArrow />
+          </TouchableRow>
+        </View>
+      )}
+      {search?.length < 1 && (
+        <ScrollView
+          contentContainerStyle={{flexGrow: 1, paddingHorizontal: mvs(20)}}>
+          <Row style={{alignItems: 'center', marginTop: mvs(25)}}>
+            <View
+              style={{
+                height: StyleSheet.hairlineWidth,
+                backgroundColor: colors.lightGray,
+                flex: 1,
+              }}
+            />
+            <Regular
+              label={'categories'}
+              style={{textTransform: 'uppercase', marginHorizontal: mvs(10)}}
+            />
+            <View
+              style={{
+                height: StyleSheet.hairlineWidth,
+                backgroundColor: colors.lightGray,
+                flex: 1,
+              }}
             />
           </Row>
-          <RightArrow />
-        </TouchableRow>
-      </View>
-      <ScrollView
-        contentContainerStyle={{flexGrow: 1, paddingHorizontal: mvs(20)}}>
-        <Row style={{alignItems: 'center', marginTop: mvs(25)}}>
-          <View
-            style={{
-              height: StyleSheet.hairlineWidth,
-              backgroundColor: colors.lightGray,
-              flex: 1,
-            }}
-          />
+          {CATEGORIES.map(x => {
+            const Icon = SVGS[x?.icon];
+            return (
+              <TouchableRow
+                style={{marginTop: mvs(20)}}
+                onPress={() =>
+                  props?.navigation?.navigate('Home', {type: x?.title})
+                }>
+                <Bold label={x?.title} style={{textTransform: 'uppercase'}} />
+                <Icon height={mvs(20)} width={mvs(20)} />
+              </TouchableRow>
+            );
+          })}
+          <Row style={{alignItems: 'center', marginTop: mvs(25)}}>
+            <View
+              style={{
+                height: StyleSheet.hairlineWidth,
+                backgroundColor: colors.lightGray,
+                flex: 1,
+              }}
+            />
+            <Regular
+              label={'Quick Links'}
+              style={{textTransform: 'uppercase', marginHorizontal: mvs(10)}}
+            />
+            <View
+              style={{
+                height: StyleSheet.hairlineWidth,
+                backgroundColor: colors.lightGray,
+                flex: 1,
+              }}
+            />
+          </Row>
+          <Row style={{marginTop: mvs(20)}}>
+            <SecondayButton
+              onPress={() => props?.navigation?.navigate('Home')}
+              title={'AK Deals'}
+              containerStyle={{backgroundColor: colors.aqua}}
+            />
+            <SecondayButton
+              onPress={() => props?.navigation?.navigate('Home')}
+              title={'AR Deals'}
+              containerStyle={{backgroundColor: colors.aqua}}
+            />
+          </Row>
+          <Row style={{marginTop: mvs(20)}}>
+            <SecondayButton
+              onPress={() => props?.navigation?.navigate('Home')}
+              title={'1911'}
+              containerStyle={{backgroundColor: colors.aqua}}
+            />
+            <SecondayButton
+              onPress={() => props?.navigation?.navigate('Home')}
+              title={'C&R'}
+              containerStyle={{backgroundColor: colors.aqua}}
+            />
+          </Row>
+          <Row style={{marginTop: mvs(20)}}>
+            <SecondayButton
+              onPress={() => props?.navigation?.navigate('Home')}
+              title={'Rimfire'}
+              containerStyle={{backgroundColor: colors.aqua}}
+            />
+            <SecondayButton
+              onPress={() => props?.navigation?.navigate('Home')}
+              title={'Revolver'}
+              containerStyle={{backgroundColor: colors.aqua}}
+            />
+          </Row>
+          <Row style={{marginTop: mvs(20)}}>
+            <SecondayButton
+              onPress={() => props?.navigation?.navigate('Home')}
+              title={'22LR Ammo'}
+              containerStyle={{backgroundColor: colors.aqua}}
+            />
+            <SecondayButton
+              onPress={() => props?.navigation?.navigate('Home')}
+              title={'Used Guns'}
+              containerStyle={{backgroundColor: colors.aqua}}
+            />
+          </Row>
+          <Row style={{marginTop: mvs(20)}}>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                padding: mvs(10),
+                backgroundColor: colors.secondary,
+              }}
+              onPress={() => props?.navigation?.navigate('Login')}>
+              <Row style={{alignItems: 'center'}}>
+                <Medium label={'WATCHLIST'} size={mvs(14)} />
+                <SVGS.Watchlist />
+              </Row>
+            </TouchableOpacity>
+            <View
+              style={{
+                width: StyleSheet.hairlineWidth,
+                height: '100%',
+                backgroundColor: colors.lightGray,
+              }}
+            />
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                padding: mvs(10),
+                backgroundColor: colors.secondary,
+              }}
+              onPress={() => props?.navigation?.navigate('Login')}>
+              <Row style={{alignItems: 'center'}}>
+                <Medium label={'LOGIN'} size={mvs(14)} />
+                <SVGS.LoginIcon />
+              </Row>
+            </TouchableOpacity>
+          </Row>
+        </ScrollView>
+      )}
+      {search?.length > 1 && (
+        <>
           <Regular
-            label={'categories'}
-            style={{textTransform: 'uppercase', marginHorizontal: mvs(10)}}
-          />
-          <View
+            label={'SUGGESTED PRODUCTS'}
             style={{
-              height: StyleSheet.hairlineWidth,
-              backgroundColor: colors.lightGray,
-              flex: 1,
+              marginTop: mvs(10),
+              marginHorizontal: mvs(10),
+              marginBottom: mvs(10),
             }}
           />
-        </Row>
-        {CATEGORIES.map(x => {
-          const Icon = SVGS[x?.icon];
-          return (
-            <TouchableRow style={{marginTop: mvs(20)}}>
-              <Bold label={x?.title} style={{textTransform: 'uppercase'}} />
-              <Icon height={mvs(20)} width={mvs(20)} />
-            </TouchableRow>
-          );
-        })}
-        <Row style={{alignItems: 'center', marginTop: mvs(25)}}>
-          <View
-            style={{
-              height: StyleSheet.hairlineWidth,
-              backgroundColor: colors.lightGray,
-              flex: 1,
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingBottom: mvs(40),
+              paddingTop: mvs(15),
+              paddingHorizontal: mvs(18),
             }}
+            data={[1, 2, 3, 4, 5, 6, 7, 8]}
+            renderItem={({item}) => (
+              <DrawerProduct
+                onPress={() => props?.navigation?.navigate('ProductDetails')}
+              />
+            )}
           />
-          <Regular
-            label={'Quick Links'}
-            style={{textTransform: 'uppercase', marginHorizontal: mvs(10)}}
-          />
-          <View
-            style={{
-              height: StyleSheet.hairlineWidth,
-              backgroundColor: colors.lightGray,
-              flex: 1,
-            }}
-          />
-        </Row>
-        <Row style={{marginTop: mvs(20)}}>
-          <SecondayButton
-            title={'AK Deals'}
-            containerStyle={{backgroundColor: colors.aqua}}
-          />
-          <SecondayButton
-            title={'AR Deals'}
-            containerStyle={{backgroundColor: colors.aqua}}
-          />
-        </Row>
-        <Row style={{marginTop: mvs(20)}}>
-          <SecondayButton
-            title={'1911'}
-            containerStyle={{backgroundColor: colors.aqua}}
-          />
-          <SecondayButton
-            title={'C&R'}
-            containerStyle={{backgroundColor: colors.aqua}}
-          />
-        </Row>
-        <Row style={{marginTop: mvs(20)}}>
-          <SecondayButton
-            title={'Rimfire'}
-            containerStyle={{backgroundColor: colors.aqua}}
-          />
-          <SecondayButton
-            title={'Revolver'}
-            containerStyle={{backgroundColor: colors.aqua}}
-          />
-        </Row>
-        <Row style={{marginTop: mvs(20)}}>
-          <SecondayButton
-            title={'22LR Ammo'}
-            containerStyle={{backgroundColor: colors.aqua}}
-          />
-          <SecondayButton
-            title={'Used Guns'}
-            containerStyle={{backgroundColor: colors.aqua}}
-          />
-        </Row>
-        <Row style={{marginTop: mvs(20)}}>
-          <TouchableOpacity
-            style={{
-              flex: 1,
-              padding: mvs(10),
-              backgroundColor: colors.secondary,
-            }}>
-            <Row style={{alignItems: 'center'}}>
-              <Medium label={'WATCHLIST'} size={mvs(14)} />
-              <SVGS.Watchlist />
-            </Row>
-          </TouchableOpacity>
-          <View
-            style={{
-              width: StyleSheet.hairlineWidth,
-              height: '100%',
-              backgroundColor: colors.lightGray,
-            }}
-          />
-          <TouchableOpacity
-            style={{
-              flex: 1,
-              padding: mvs(10),
-              backgroundColor: colors.secondary,
-            }}>
-            <Row style={{alignItems: 'center'}}>
-              <Medium label={'LOGIN'} size={mvs(14)} />
-              <SVGS.LoginIcon />
-            </Row>
-          </TouchableOpacity>
-        </Row>
-      </ScrollView>
+        </>
+      )}
     </View>
   );
 };
