@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {
-  View,
+  FlatList,
+  ImageBackground,
   ScrollView,
   StyleSheet,
-  ImageBackground,
   TouchableOpacity,
-  FlatList,
+  View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import * as SVGS from '../../assets/icons';
 import {
   CouponIcon,
   DateIcon,
@@ -17,18 +18,17 @@ import {
   StarIcon,
 } from '../../assets/icons';
 import {drawer_top_bg} from '../../assets/images';
+import {SecondayButton} from '../../components/atoms/buttons';
 import {SearchInput} from '../../components/atoms/inputs';
 import {Row} from '../../components/atoms/row';
+import {TouchableRow} from '../../components/atoms/touchable-row';
+import DrawerProduct from '../../components/product/drawer-product';
 import {colors} from '../../config/colors';
 import {CATEGORIES} from '../../config/constants';
 import {mvs} from '../../config/metrices';
 import Bold from '../../typography/bold-text';
 import Medium from '../../typography/medium-text';
 import Regular from '../../typography/regular-text';
-import * as SVGS from '../../assets/icons';
-import {PrimaryButton, SecondayButton} from '../../components/atoms/buttons';
-import {TouchableRow} from '../../components/atoms/touchable-row';
-import DrawerProduct from '../../components/product/drawer-product';
 const CustomDrawerContent = props => {
   const [search, setSearch] = useState('');
   return (

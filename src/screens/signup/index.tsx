@@ -1,12 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { ImageBackground, StatusBar, TextInput, View,TouchableOpacity,ScrollView } from 'react-native';
+import { ImageBackground, ScrollView, StatusBar, TextInput, TouchableOpacity, View } from 'react-native';
 import { Back, HeaderLogo } from '../../assets/icons';
-import { bg, BottomBlack } from '../../assets/images';
+import { bg } from '../../assets/images';
 import { PrimaryButton } from '../../components/atoms/buttons';
-import AppHeader from '../../components/atoms/headers/index';
-import PrimaryInput from '../../components/atoms/inputs';
-import { KeyboardAvoidScrollview } from '../../components/atoms/keyboard-avoid-scrollview';
 import { Row } from '../../components/atoms/row';
 import { colors } from '../../config/colors';
 import { mvs } from '../../config/metrices';
@@ -45,7 +42,7 @@ const Signup = (props: props) => {
          <TextInput placeholder='Confirm e-mail address' style={styles.input}/>
          <TextInput placeholder='Password' style={styles.input}/>
          <TextInput placeholder='Confirm Password' style={styles.input}/>
-         <PrimaryButton title='Register' containerStyle={{marginTop:mvs(45)}}/>
+         <PrimaryButton title='Register' containerStyle={{marginTop:mvs(45)}} onPress={()=>{}}/>
          <TouchableOpacity style={{marginTop:mvs(25),alignSelf:'center'}}>
             <Regular label={'Forgot Your Password?'} color={colors.lightGray}/>
          </TouchableOpacity>

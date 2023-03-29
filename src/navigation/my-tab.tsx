@@ -1,5 +1,5 @@
 import React from "react";
-import { Animated, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
 import fonts from "../assets/fonts";
 import { colors } from "../config/colors";
 import { mvs } from "../config/metrices";

@@ -1,14 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { ImageBackground, StatusBar, TextInput, View,TouchableOpacity ,ScrollView} from 'react-native';
+import { ImageBackground, ScrollView, StatusBar, TextInput, TouchableOpacity, View } from 'react-native';
 import { Back, HeaderLogo } from '../../assets/icons';
-import { bg, BottomBlack } from '../../assets/images';
+import { bg } from '../../assets/images';
 import { PrimaryButton } from '../../components/atoms/buttons';
-import AppHeader from '../../components/atoms/headers/index';
-import PrimaryInput from '../../components/atoms/inputs';
-import { KeyboardAvoidScrollview } from '../../components/atoms/keyboard-avoid-scrollview';
 import { Row } from '../../components/atoms/row';
-import { TouchableRow } from '../../components/atoms/touchable-row';
 import { colors } from '../../config/colors';
 import { mvs } from '../../config/metrices';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-store';
@@ -43,7 +39,7 @@ const Login = (props: props) => {
        <View style={styles.login}>
          <TextInput placeholder='Username or e-mail address' style={{borderBottomColor:colors.lightGray,borderBottomWidth:0.5}}/>
          <TextInput placeholder='Password' style={{borderBottomColor:colors.lightGray,borderBottomWidth:0.5,marginTop:mvs(12)}}/>
-         <PrimaryButton title='Login' containerStyle={{marginTop:mvs(45)}}/>
+         <PrimaryButton title='Login' containerStyle={{marginTop:mvs(45)}} onPress={()=>{}}/>
          <TouchableOpacity style={{marginTop:mvs(25),alignSelf:'center'}}>
             <Regular label={'Forgot Your Password?'} color={colors.lightGray}/>
          </TouchableOpacity>

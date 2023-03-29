@@ -6,15 +6,12 @@ import { Platform, StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../config/colors';
 import Login from '../screens/login';
+import ProductDetails from '../screens/product-details';
 import Signup from '../screens/signup';
+import Splash from '../screens/splash';
 import RootStackParamList from '../types/navigation-types/root-stack';
 import { horizontalAnimation } from '../utils';
 import DrawerNavigation from './drawer-navigation';
-import ProductDetails from '../screens/product-details';
-import Prices from '../screens/prices-screen';
-import Comments from '../screens/comments-screen';
-import TopTabNavigator from './top-tab-navigation';
-import Splash from '../screens/splash';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
@@ -33,10 +30,6 @@ export const RootNavigator = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="ProductDetails" component={ProductDetails} />
-        <Stack.Screen name="Prices" component={Prices} />
-        <Stack.Screen name="Comments" component={Comments} />
-        <Stack.Screen name="TopTabNavigator" component={TopTabNavigator} />
-
       </Stack.Navigator>
     </SafeAreaView>
   );

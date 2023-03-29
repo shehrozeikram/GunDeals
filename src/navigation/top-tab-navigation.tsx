@@ -1,7 +1,6 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import CustomBackHeader from "../components/atoms/headers/custom-back-header";
 import { colors } from "../config/colors";
 import { mvs } from "../config/metrices";
 import Comments from "../screens/comments-screen";

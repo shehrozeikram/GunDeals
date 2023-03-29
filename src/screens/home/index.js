@@ -1,13 +1,11 @@
 import React from 'react';
-import {TouchableOpacity, View, FlatList} from 'react-native';
+import {FlatList, TouchableOpacity, View} from 'react-native';
 import {CaretDown} from '../../assets/icons';
 import CustomHeader from '../../components/atoms/headers/custom-header';
 import {Row} from '../../components/atoms/row';
 import ProductItem from '../../components/product/product-item';
 import {mvs} from '../../config/metrices';
-import {useAppSelector} from '../../hooks/use-store';
 import Medium from '../../typography/medium-text';
-import Regular from '../../typography/regular-text';
 import styles from './styles';
 const Home = props => {
   const {navigation, route} = props;
@@ -15,7 +13,7 @@ const Home = props => {
   return (
     <View style={styles.container}>
       <CustomHeader
-        title={route?.params?.type ? route?.params?.type : 'CA LEGAL'}
+        title={route?.params?.type ? route?.params?.type : 'Home'}
         onMenuClick={() => navigation?.toggleDrawer()}
       />
       <View style={styles.body}>

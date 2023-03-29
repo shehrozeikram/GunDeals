@@ -1,8 +1,8 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {width} from '../config/metrices';
-import Home from '../screens/home';
 import Discounts from '../screens/discount-screen';
+import Home from '../screens/home';
 import CustomDrawerContent from './drawer-navigation/drawer-content';
 const Drawer = createDrawerNavigator();
 
