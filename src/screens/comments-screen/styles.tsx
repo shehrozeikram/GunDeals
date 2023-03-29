@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         padding: mvs(20)
     },
     body: {
-        flex: 1,
+        flexGrow: 1,
         paddingVertical: mvs(12),
         paddingHorizontal: mvs(20),
         backgroundColor: colors.bg

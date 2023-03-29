@@ -1,22 +1,24 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { colors } from "../config/colors";
 import { mvs } from "../config/metrices";
 import Comments from "../screens/comments-screen";
 import Discounts from "../screens/discount-screen";
 import Prices from "../screens/prices-screen";
 import MyTabBar from "./my-tab";
-
+import PagerView from 'react-native-pager-view';
 const Tab = createMaterialTopTabNavigator();
 
 const TopTabNavigator = (props: any) => {
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ height: 600, paddingBottom: mvs(80), backgroundColor: 'red' }}>
             <Tab.Navigator
                 tabBar={(props: any) => <MyTabBar {...props} />}
                 screenOptions={{
+                    // tabBarScrollEnabled: true,
                     tabBarActiveTintColor: colors.black,
                     tabBarStyle: { backgroundColor: colors.white, marginTop: mvs(14) },
                     tabBarIndicatorStyle: {

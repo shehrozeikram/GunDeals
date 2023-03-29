@@ -1,18 +1,20 @@
 import React from 'react';
-import {TextInput, View} from 'react-native';
-import {Rating} from 'react-native-elements';
-import {Reply} from '../../assets/icons';
-import {PrimaryButton} from '../../components/atoms/buttons';
-import {Row} from '../../components/atoms/row';
-import {TouchableRow} from '../../components/atoms/touchable-row';
-import {colors} from '../../config/colors';
-import {mvs} from '../../config/metrices';
+import { TextInput, View, ScrollView } from 'react-native';
+import { Rating } from 'react-native-elements';
+import { Reply } from '../../assets/icons';
+import { PrimaryButton } from '../../components/atoms/buttons';
+import { Row } from '../../components/atoms/row';
+import { TouchableRow } from '../../components/atoms/touchable-row';
+import { colors } from '../../config/colors';
+import { mvs } from '../../config/metrices';
 import Regular from '../../typography/regular-text';
 import styles from './styles';
 const Comments = props => {
   return (
     <View style={styles.container}>
-      <View style={styles.body}>
+      <ScrollView
+        nestedScrollEnabled
+        contentContainerStyle={styles.body}>
         <View
           style={{
             paddingVertical: mvs(17),
@@ -60,7 +62,7 @@ const Comments = props => {
             fontSize={mvs(14)}
           />
           <Regular
-            style={{marginTop: mvs(10), color: colors.black, fontSize: mvs(12)}}
+            style={{ marginTop: mvs(10), color: colors.black, fontSize: mvs(12) }}
             label={`Sportsman’s Guide members receive 10% discount on all orders (5% on ammunition & firearms). Membership is $39.99 per year, no auto renewals.`}
             fontSize={mvs(12)}
             color={colors.lightGray}
@@ -80,14 +82,14 @@ const Comments = props => {
             startingValue={4}
             imageSize={mvs(18)}
             readonly
-            style={{alignSelf: 'flex-start'}}
+            style={{ alignSelf: 'flex-start' }}
           />
           <TouchableRow>
-            <Reply style={{marginHorizontal: mvs(10)}} />
+            <Reply style={{ marginHorizontal: mvs(10) }} />
             <Regular label={'Reply'} />
           </TouchableRow>
         </Row>
-      </View>
+      </ScrollView>
     </View>
   );
 };
