@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FlatList, TouchableOpacity, View} from 'react-native';
+import {FlatList, TouchableOpacity, View,ViewToken} from 'react-native';
 import {CaretDown} from '../../assets/icons';
 import CustomHeader from '../../components/atoms/headers/custom-header';
 import {Row} from '../../components/atoms/row';
@@ -8,6 +8,8 @@ import ProductItem from '../../components/product/product-item';
 import {mvs} from '../../config/metrices';
 import Bold from '../../typography/bold-text';
 import styles from './styles';
+import { useSharedValue } from 'react-native-reanimated';
+const data = new Array(50).fill(0).map((_, index) => ({id: index}));
 const categories = [
   {id: 1, title: 'Date (newest first)', isSelected: true},
   {id: 2, title: '17 Fireball', isSelected: false},
@@ -27,6 +29,7 @@ const categories = [
   {id: 16, title: '20 BB', isSelected: false},
 ];
 const Home = props => {
+  const viewableItems = useSharedValue<ViewToken[]>([]);
   const {navigation, route} = props;
   const [showCategories, setShowCategories] = useState(false);
   return (
@@ -37,7 +40,7 @@ const Home = props => {
       />
       <View style={styles.body}>
         <Row style={{alignItems: 'center'}}>
-          <Bold label={'Showing all categories'} fontSize={mvs(14)} />
+          <Bold label={'SHOWING ALL CATEGORIES'} fontSize={mvs(14)} />
           <TouchableOpacity onPress={() => setShowCategories(!showCategories)}>
             <CaretDown />
           </TouchableOpacity>
@@ -69,11 +72,18 @@ const Home = props => {
               paddingBottom: mvs(10),
               marginTop: mvs(15),
             }}
-            data={[1, 2, 3, 4, 5, 6, 7, 8]}
+            onViewableItemsChanged={({viewableItems: vItems}) => {
+              viewableItems.value = vItems;
+            }}
+            data={data}
             renderItem={({item}) => (
-              <ProductItem
-                onPress={() => props?.navigation?.navigate('ProductDetails')}
-              />
+              <TouchableOpacity onPress={() => props?.navigation?.navigate('ProductDetails')}>
+                 <ProductItem
+                  viewableItems={viewableItems}
+                  item={item}
+                />
+              </TouchableOpacity>
+              
             )}
           />
         )}

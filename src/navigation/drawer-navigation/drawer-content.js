@@ -102,7 +102,9 @@ const CustomDrawerContent = props => {
         <View
           style={{backgroundColor: colors.primary, paddingHorizontal: mvs(25)}}>
           <TouchableRow
-            onPress={() => props?.navigation?.navigate('Home')}
+            onPress={() =>
+              props?.navigation?.navigate('Home', {type: 'Top this week'})
+            }
             style={{alignItems: 'center', paddingVertical: mvs(15)}}>
             <Row style={{justifyContent: 'flex-start'}}>
               <DateStar />

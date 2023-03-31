@@ -1,14 +1,12 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import { colors } from "../config/colors";
 import { mvs } from "../config/metrices";
 import Comments from "../screens/comments-screen";
-import Discounts from "../screens/discount-screen";
 import Prices from "../screens/prices-screen";
+import ProductCoupons from "../screens/product-coupons/product-coupons";
 import MyTabBar from "./my-tab";
-import PagerView from 'react-native-pager-view';
 const Tab = createMaterialTopTabNavigator();
 
 const TopTabNavigator = (props: any) => {
@@ -43,7 +41,7 @@ const TopTabNavigator = (props: any) => {
                 />
                 <Tab.Screen
                     name="Evening"
-                    component={Discounts}
+                    component={ProductCoupons}
                     options={{
                         // title: stateData?.Evening?.timing,
                         tabBarLabel: "DISCOUNTS (5)",
