@@ -5,16 +5,16 @@ import { colors } from './../../config/colors';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.bg
+        backgroundColor: colors.white
     },
     contentContainerStyle: {
         flex: 1,
-        padding: mvs(20)
+        padding: mvs(10)
     },
     body:{
         flex:1,
         paddingVertical:mvs(12),
-        paddingHorizontal:mvs(21)
+        paddingHorizontal:mvs(10)
     }
 });
 export default styles;

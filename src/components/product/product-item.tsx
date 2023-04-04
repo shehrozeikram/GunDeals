@@ -56,24 +56,25 @@ const ProductItem: React.FC<ListItemProps> = ({style, item, viewableItems}) => {
           style={{alignSelf: 'center'}}
         />
         <Row style={{alignItems: 'center', marginTop: mvs(10)}}>
-          <Image source={Gun1} style={{height: mvs(65), width: mvs(83)}} />
+          <Image source={Gun1} style={{height: mvs(70), width: mvs(103)}} />
           <View style={{flex: 1, paddingLeft: mvs(20)}}>
             <Bold
-              label={'DESERT TEch mdrx se * ca'.toUpperCase()}
+              label={'Deseret tech mdrx se * ca'.toLocaleLowerCase()}
               color={colors.black}
-              fontSize={mvs(13)}
+              fontSize={mvs(11)}
             />
             <Bold
-              style={{marginTop: mvs(10)}}
-              label={'Compliant 5.56X45mm NATO 20” 10+1 Black - $2205 (Add To Cart)'.toUpperCase()}
+              style={{marginTop: mvs(-3)}}
+              label={'Compliant 5.56X45mm NATO 20” 10+1 Black-$2205 (Add To Cart)'.toLocaleLowerCase()}
               color={colors.black}
-              fontSize={mvs(13)}
+              fontSize={mvs(10)}
             />
             <Regular
               label={'2 weeks ago'}
               style={{marginTop: mvs(10)}}
               color={colors.lightGray}
               fontStyle="italic"
+              fontSize={mvs(11)}
             />
           </View>
         </Row>
@@ -83,7 +84,7 @@ const ProductItem: React.FC<ListItemProps> = ({style, item, viewableItems}) => {
           <CartIcon />
           <Regular
             label={'KyGunCo'}
-            fontSize={mvs(12)}
+            fontSize={mvs(10)}
             color={colors.lightGray}
             style={{marginLeft: mvs(10)}}
           />
@@ -93,7 +94,7 @@ const ProductItem: React.FC<ListItemProps> = ({style, item, viewableItems}) => {
             <Watch />
             <Regular
               label={'Watch'}
-              fontSize={mvs(12)}
+              fontSize={mvs(10)}
               color={colors.lightGray}
               style={{marginLeft: mvs(7)}}
             />
@@ -102,7 +103,7 @@ const ProductItem: React.FC<ListItemProps> = ({style, item, viewableItems}) => {
             <Comment />
             <Regular
               label={'4'}
-              fontSize={mvs(12)}
+              fontSize={mvs(10)}
               color={colors.lightGray}
               style={{marginLeft: mvs(7)}}
             />
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: mvs(10),
-    paddingVertical: mvs(13),
+    paddingVertical: mvs(3),
     elevation: 1,
     borderBottomWidth: 0.5,
     borderColor: colors.lightGray,
