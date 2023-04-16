@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../config/colors';
 import Login from '../screens/login';
 import ProductDetails from '../screens/product-details';
+import InventoryDetails from '../screens/inventory-details/inventory-details';
 import Signup from '../screens/signup';
 import Splash from '../screens/splash';
 import RootStackParamList from '../types/navigation-types/root-stack';
@@ -30,6 +31,7 @@ export const RootNavigator = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="ProductDetails" component={ProductDetails} />
+        <Stack.Screen name="InventoryDetails" component={InventoryDetails} />
       </Stack.Navigator>
     </SafeAreaView>
   );

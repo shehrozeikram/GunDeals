@@ -29,8 +29,17 @@ import {mvs} from '../../config/metrices';
 import Bold from '../../typography/bold-text';
 import Medium from '../../typography/medium-text';
 import Regular from '../../typography/regular-text';
+import axios from 'axios';
+import {BASE_URL} from '../../API/urls';
 const CustomDrawerContent = props => {
   const [search, setSearch] = useState('');
+  const [products, setProducts] = useState([]);
+  const onSearch = async val => {
+    setSearch(val);
+    var res = await axios.get(BASE_URL + 'products/search_products?q=' + val);
+    console.log('API SEARCH RESPONSE ===> ', res?.data?.search_products);
+    setProducts(res?.data?.search_products);
+  };
   return (
     <View
       style={{
@@ -47,7 +56,7 @@ const CustomDrawerContent = props => {
         <View style={{paddingHorizontal: mvs(20)}}>
           <SearchInput
             value={search}
-            onChangeText={val => setSearch(val)}
+            onChangeText={val => onSearch(val)}
             onCrossClick={() => setSearch('')}
           />
         </View>
@@ -175,48 +184,88 @@ const CustomDrawerContent = props => {
           </Row>
           <Row style={{marginTop: mvs(20)}}>
             <SecondayButton
-              onPress={() => props?.navigation?.navigate('Home')}
+              onPress={() =>
+                props?.navigation?.navigate('Home', {
+                  type: 'AK Deals',
+                  quick: 'Used',
+                })
+              }
               title={'AK Deals'}
               containerStyle={{backgroundColor: colors.aqua}}
             />
             <SecondayButton
-              onPress={() => props?.navigation?.navigate('Home')}
+              onPress={() =>
+                props?.navigation?.navigate('Home', {
+                  type: 'AR Deals',
+                  quick: 'Used',
+                })
+              }
               title={'AR Deals'}
               containerStyle={{backgroundColor: colors.aqua}}
             />
           </Row>
           <Row style={{marginTop: mvs(20)}}>
             <SecondayButton
-              onPress={() => props?.navigation?.navigate('Home')}
+              onPress={() =>
+                props?.navigation?.navigate('Home', {
+                  type: '1911',
+                  quick: 'Used',
+                })
+              }
               title={'1911'}
               containerStyle={{backgroundColor: colors.aqua}}
             />
             <SecondayButton
-              onPress={() => props?.navigation?.navigate('Home')}
+              onPress={() =>
+                props?.navigation?.navigate('Home', {
+                  type: 'C&R',
+                  quick: 'Used',
+                })
+              }
               title={'C&R'}
               containerStyle={{backgroundColor: colors.aqua}}
             />
           </Row>
           <Row style={{marginTop: mvs(20)}}>
             <SecondayButton
-              onPress={() => props?.navigation?.navigate('Home')}
+              onPress={() =>
+                props?.navigation?.navigate('Home', {
+                  type: 'Rimfire',
+                  quick: 'Used',
+                })
+              }
               title={'Rimfire'}
               containerStyle={{backgroundColor: colors.aqua}}
             />
             <SecondayButton
-              onPress={() => props?.navigation?.navigate('Home')}
+              onPress={() =>
+                props?.navigation?.navigate('Home', {
+                  type: 'Revolver',
+                  quick: 'Used',
+                })
+              }
               title={'Revolver'}
               containerStyle={{backgroundColor: colors.aqua}}
             />
           </Row>
           <Row style={{marginTop: mvs(20)}}>
             <SecondayButton
-              onPress={() => props?.navigation?.navigate('Home')}
+              onPress={() =>
+                props?.navigation?.navigate('Home', {
+                  type: '22LR Ammo',
+                  quick: 'Used',
+                })
+              }
               title={'22LR Ammo'}
               containerStyle={{backgroundColor: colors.aqua}}
             />
             <SecondayButton
-              onPress={() => props?.navigation?.navigate('Home')}
+              onPress={() =>
+                props?.navigation?.navigate('Home', {
+                  type: 'Used Guns',
+                  quick: 'Used',
+                })
+              }
               title={'Used Guns'}
               containerStyle={{backgroundColor: colors.aqua}}
             />
@@ -256,7 +305,7 @@ const CustomDrawerContent = props => {
           </Row>
         </ScrollView>
       )}
-      {search?.length > 1 && (
+      {search?.length >= 1 && (
         <>
           <Regular
             label={'SUGGESTED PRODUCTS'}
@@ -273,10 +322,15 @@ const CustomDrawerContent = props => {
               paddingTop: mvs(15),
               paddingHorizontal: mvs(18),
             }}
-            data={[1, 2, 3, 4, 5, 6, 7, 8]}
+            data={products}
             renderItem={({item}) => (
               <DrawerProduct
-                onPress={() => props?.navigation?.navigate('ProductDetails')}
+                item={item}
+                onPress={() =>
+                  props?.navigation?.navigate('InventoryDetails', {
+                    id: item?.id,
+                  })
+                }
               />
             )}
           />

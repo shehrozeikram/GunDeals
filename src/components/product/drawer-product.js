@@ -7,36 +7,46 @@ import {mvs} from '../../config/metrices';
 import Bold from '../../typography/bold-text';
 import Regular from '../../typography/regular-text';
 import {Row} from '../atoms/row';
+import {IMAGE_URL} from '../../API/urls';
 const DrawerProduct = ({style, item, onPress = () => {}}) => {
   return (
     <TouchableOpacity onPress={onPress} style={{...styles.main}}>
       <View style={styles.image}>
-        <Image source={Gun1} style={{height: mvs(45), width: mvs(65)}} />
+        <Image
+          source={{uri: `${IMAGE_URL}${item?.image?.url}`}}
+          style={{height: mvs(45), width: mvs(65)}}
+        />
       </View>
       <View style={{flex: 1, paddingHorizontal: mvs(20)}}>
         <Row style={{justifyContent: 'flex-start', alignItems: 'center'}}>
-          <View style={styles.green}></View>
+          {item?.active && <View style={styles.green}></View>}
           <Bold
-            label={'AK-47'}
+            label={item?.title}
             style={{marginLeft: mvs(10)}}
-            fontSize={mvs(16)}
+            fontSize={mvs(11)}
             color={colors.black}
+            numberOfLines={1}
           />
         </Row>
+        {item?.body && (
+          <Bold
+            label={item?.body}
+            style={{marginTop: mvs(3)}}
+            fontSize={mvs(12)}
+            color={colors.black}
+            numberOfLines={3}
+          />
+        )}
+        {item?.caliber && (
+          <Bold
+            label={'Caliber: ' + item?.caliber}
+            style={{marginTop: mvs(3)}}
+            fontSize={mvs(12)}
+            color={colors.black}
+          />
+        )}
         <Bold
-          label={'Desert Tech m...'}
-          style={{marginTop: mvs(3)}}
-          fontSize={mvs(12)}
-          color={colors.black}
-        />
-        <Bold
-          label={'Caliber: 7.62x39mm'}
-          style={{marginTop: mvs(3)}}
-          fontSize={mvs(12)}
-          color={colors.black}
-        />
-        <Bold
-          label={'AKfrom: $649.99'}
+          label={'AKfrom: $' + item?.price}
           style={{marginTop: mvs(3)}}
           fontSize={mvs(12)}
           color={colors.black}

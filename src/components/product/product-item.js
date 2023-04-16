@@ -1,53 +1,28 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {
-  Image,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewToken
-} from 'react-native';
+import {Image, ImageBackground, StyleSheet, View} from 'react-native';
+import {Rating} from 'react-native-elements';
 import {CartIcon, Comment, Watch} from '../../assets/icons';
-import {Gun1, HeaderBg, Price} from '../../assets/images';
+import {Gun1, Price} from '../../assets/images';
 import {colors} from '../../config/colors';
 import {mvs} from '../../config/metrices';
 import Bold from '../../typography/bold-text';
 import Regular from '../../typography/regular-text';
-import {Rating} from 'react-native-elements';
 import {Row} from '../atoms/row';
-import Animated, {useAnimatedStyle, withTiming,useSharedValue} from 'react-native-reanimated';
-type ListItemProps = {
-  viewableItems: Animated.SharedValue<ViewToken[]>;
-  item: {
-    id: number;
-  };
-  style:undefined
-};
-const ProductItem: React.FC<ListItemProps> = ({style, item, viewableItems}) => {
-  const rStyle = useAnimatedStyle(() => {
-    const isVisible = Boolean(
-      viewableItems.value
-        ?.filter(item => item.isViewable)
-        .find(viewableItem => viewableItem.item?.id === item?.id),
-    );
-
-    return {
-      opacity: withTiming(isVisible ? 1 : 0),
-      transform: [
-        {
-          scale: withTiming(isVisible ? 1 : 0.6),
-        },
-      ],
-    };
-  }, []);
+import {BASE_URL, IMAGE_URL} from '../../API/urls';
+import moment from 'moment';
+const ProductItem = ({style, item}) => {
+  const time = moment(item?.created_at).fromNow();
   return (
-    <Animated.View style={[styles.main, rStyle]}>
+    <View style={[styles.main]}>
       <ImageBackground source={Price} style={styles.price}>
         <View style={styles.circle}></View>
-        <Regular label={'$2205.00'} fontSize={mvs(10)} color={colors.white} />
+        <Regular
+          label={'$' + item?.price}
+          fontSize={mvs(10)}
+          color={colors.white}
+        />
       </ImageBackground>
-      <View style={[styles.container,style]}>
+      <View style={[styles.container, style]}>
         <Rating
           showRating={false}
           startingValue={4}
@@ -56,21 +31,25 @@ const ProductItem: React.FC<ListItemProps> = ({style, item, viewableItems}) => {
           style={{alignSelf: 'center'}}
         />
         <Row style={{alignItems: 'center', marginTop: mvs(10)}}>
-          <Image source={Gun1} style={{height: mvs(70), width: mvs(103)}} />
+          <Image
+            source={{uri: `${IMAGE_URL}${item?.image?.url}`}}
+            style={{height: mvs(70), width: mvs(103)}}
+          />
           <View style={{flex: 1, paddingLeft: mvs(20)}}>
             <Bold
-              label={'Deseret tech mdrx se * ca'.toLocaleLowerCase()}
+              label={item?.title?.toLocaleLowerCase()}
               color={colors.black}
               fontSize={mvs(11)}
             />
             <Bold
               style={{marginTop: mvs(-3)}}
-              label={'Compliant 5.56X45mm NATO 20” 10+1 Black-$2205 (Add To Cart)'.toLocaleLowerCase()}
+              label={item?.body?.toLocaleLowerCase()}
               color={colors.black}
               fontSize={mvs(10)}
+              numberOfLines={2}
             />
             <Regular
-              label={'2 weeks ago'}
+              label={time + ''}
               style={{marginTop: mvs(10)}}
               color={colors.lightGray}
               fontStyle="italic"
@@ -110,7 +89,7 @@ const ProductItem: React.FC<ListItemProps> = ({style, item, viewableItems}) => {
           </Row>
         </Row>
       </View>
-    </Animated.View>
+    </View>
   );
 };
 export default React.memo(ProductItem);

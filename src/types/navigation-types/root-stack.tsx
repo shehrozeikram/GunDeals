@@ -7,5 +7,6 @@ type RootStackParamList = {
   Signup: undefined;
   ProductDetails: Task | undefined,
   DrawerNavigation: undefined;
+  InventoryDetails:undefined
 };
 export default RootStackParamList;
