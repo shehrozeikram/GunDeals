@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   ImageBackground,
@@ -34,11 +34,26 @@ import {BASE_URL} from '../../API/urls';
 const CustomDrawerContent = props => {
   const [search, setSearch] = useState('');
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const onSearch = async val => {
     setSearch(val);
     var res = await axios.get(BASE_URL + 'products/search_products?q=' + val);
     console.log('API SEARCH RESPONSE ===> ', res?.data?.search_products);
     setProducts(res?.data?.search_products);
+  };
+  useEffect(() => {
+    getCategories();
+  }, []);
+  const getCategories = async () => {
+    //setLoading(true);
+    axios
+      .get(BASE_URL + 'products/fetch_categories')
+      .then(response => {
+        setCategories(response?.data?.categories);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
   return (
     <View
@@ -149,16 +164,22 @@ const CustomDrawerContent = props => {
               }}
             />
           </Row>
-          {CATEGORIES.map(x => {
+          {categories.map(x => {
             const Icon = SVGS[x?.icon];
             return (
               <TouchableRow
                 style={{marginTop: mvs(20)}}
                 onPress={() =>
-                  props?.navigation?.navigate('Home', {type: x?.title})
+                  props?.navigation?.navigate('Home', {
+                    type: x?.name + '',
+                    categoryId: x?.id,
+                  })
                 }>
-                <Bold label={x?.title} style={{textTransform: 'uppercase'}} />
-                <Icon height={mvs(20)} width={mvs(20)} />
+                <Bold
+                  label={x?.name + ''}
+                  style={{textTransform: 'uppercase'}}
+                />
+                {Icon && <Icon height={mvs(20)} width={mvs(20)} />}
               </TouchableRow>
             );
           })}
@@ -187,7 +208,7 @@ const CustomDrawerContent = props => {
               onPress={() =>
                 props?.navigation?.navigate('Home', {
                   type: 'AK Deals',
-                  quick: 'Used',
+                  quick: 'ak',
                 })
               }
               title={'AK Deals'}
@@ -197,7 +218,7 @@ const CustomDrawerContent = props => {
               onPress={() =>
                 props?.navigation?.navigate('Home', {
                   type: 'AR Deals',
-                  quick: 'Used',
+                  quick: 'ar',
                 })
               }
               title={'AR Deals'}
@@ -209,7 +230,7 @@ const CustomDrawerContent = props => {
               onPress={() =>
                 props?.navigation?.navigate('Home', {
                   type: '1911',
-                  quick: 'Used',
+                  quick: 'nine_mm_ammo',
                 })
               }
               title={'1911'}
@@ -219,7 +240,7 @@ const CustomDrawerContent = props => {
               onPress={() =>
                 props?.navigation?.navigate('Home', {
                   type: 'C&R',
-                  quick: 'Used',
+                  quick: 'c_and_r',
                 })
               }
               title={'C&R'}
@@ -231,7 +252,7 @@ const CustomDrawerContent = props => {
               onPress={() =>
                 props?.navigation?.navigate('Home', {
                   type: 'Rimfire',
-                  quick: 'Used',
+                  quick: 'rimfire',
                 })
               }
               title={'Rimfire'}
@@ -241,7 +262,7 @@ const CustomDrawerContent = props => {
               onPress={() =>
                 props?.navigation?.navigate('Home', {
                   type: 'Revolver',
-                  quick: 'Used',
+                  quick: 'revolver',
                 })
               }
               title={'Revolver'}
@@ -253,7 +274,7 @@ const CustomDrawerContent = props => {
               onPress={() =>
                 props?.navigation?.navigate('Home', {
                   type: '22LR Ammo',
-                  quick: 'Used',
+                  quick: 'twenty_two_lr_ammo',
                 })
               }
               title={'22LR Ammo'}
@@ -263,7 +284,7 @@ const CustomDrawerContent = props => {
               onPress={() =>
                 props?.navigation?.navigate('Home', {
                   type: 'Used Guns',
-                  quick: 'Used',
+                  quick: 'used',
                 })
               }
               title={'Used Guns'}

@@ -19,6 +19,7 @@ import Deals from './deals';
 import SimilarProduct from '../../components/product/similar-product';
 import axios from 'axios';
 import {BASE_URL, IMAGE_URL} from '../../API/urls';
+import ProductItem from '../../components/product/product-item';
 const InventoryDetails = props => {
   const {navigation, route} = props;
   const {id} = route.params;
@@ -50,7 +51,7 @@ const InventoryDetails = props => {
         onMenuClick={() => navigation?.toggleDrawer()}
       />
       <ScrollView
-        contentContainerStyle={{flexGrow: 1, paddingBottom: mvs(40)}}
+        contentContainerStyle={{flexGrow: 1}}
         showsVerticalScrollIndicator={false}>
         <View style={styles.image}>
           <Image
@@ -131,7 +132,11 @@ const InventoryDetails = props => {
             <Regular label={'DEALS'} />
           </TouchableOpacity>
         </Row>
-        {inventoryTab ? <Inventory /> : <Deals />}
+        {inventoryTab ? (
+          <Inventory data={[1, 2, 3, 4, 4]} />
+        ) : (
+          <Deals list={similarProducts} />
+        )}
       </ScrollView>
     </View>
   );

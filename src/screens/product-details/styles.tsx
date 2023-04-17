@@ -39,6 +39,17 @@ const styles = StyleSheet.create({
         bottom: 0, width: '100%',
         paddingVertical: mvs(15),
         backgroundColor:colors.white
+    },
+    police:{
+        borderRadius:mvs(30),
+        height:mvs(45),
+        backgroundColor:"#E4E8EB",
+        alignSelf:'center',
+        marginVertical:mvs(10),
+        justifyContent:'center',
+        alignItems:'center',
+        paddingHorizontal:mvs(15),
+        marginBottom:mvs(18)
     }
 });
 export default styles;

@@ -37,10 +37,12 @@ const Home = props => {
         getHomeProducts(
           'products/quick_links?deal_type=' + route?.params?.quick,
         );
+      } else if (route?.params?.categoryId != undefined) {
+        getCategoryProducts(route?.params?.categoryId);
       }
       // Clean up the effect when the component is unmounted
       return () => console.log('Screen is unfocused');
-    }, [route?.params?.type]),
+    }, [route?.params?.type, route?.params?.quick]),
   );
   const getHomeProducts = async url => {
     setLoading(true);
@@ -65,7 +67,7 @@ const Home = props => {
         setLoading(false);
       })
       .catch(error => {
-        console.log(error);
+        console.log(error?.response?.data);
         setLoading(false);
       });
   };
@@ -131,7 +133,11 @@ const Home = props => {
               data={data}
               renderItem={({item}) => (
                 <TouchableOpacity
-                  onPress={() => props?.navigation?.navigate('ProductDetails')}>
+                  onPress={() =>
+                    props?.navigation?.navigate('ProductDetails', {
+                      id: item?.id,
+                    })
+                  }>
                   <ProductItem item={item} />
                 </TouchableOpacity>
               )}

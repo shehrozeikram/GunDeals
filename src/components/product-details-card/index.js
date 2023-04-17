@@ -1,31 +1,18 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {
-  Image,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {
-  CartIcon,
-  Comment,
-  Like,
-  MenuSearch,
-  Stand,
-  ThreeLinesMenu,
-  UnLike,
-  Watch,
-} from '../../assets/icons';
-import {Gun1, HeaderBg, Price} from '../../assets/images';
+import {Image, ImageBackground, StyleSheet, View} from 'react-native';
+import {Rating} from 'react-native-elements';
+import {Like, UnLike, Watch} from '../../assets/icons';
+import {Gun1, Price} from '../../assets/images';
 import {colors} from '../../config/colors';
 import {mvs} from '../../config/metrices';
 import Bold from '../../typography/bold-text';
-import Regular from '../../typography/regular-text';
-import {Rating} from 'react-native-elements';
-import {Row} from '../atoms/row';
 import Medium from '../../typography/medium-text';
+import Regular from '../../typography/regular-text';
+import {Row} from '../atoms/row';
+import moment from 'moment';
+import {IMAGE_URL} from '../../API/urls';
 const ProductDetailsCard = ({style, item, onPress = () => {}}) => {
+  const time = moment(item?.created_at).fromNow();
   return (
     <View style={{...styles.main, ...style}}>
       <View
@@ -36,10 +23,13 @@ const ProductDetailsCard = ({style, item, onPress = () => {}}) => {
           backgroundColor: colors.white,
           padding: mvs(20),
         }}>
-        <Image source={Gun1} style={{height: mvs(160), width: '80%'}} />
+        <Image
+          source={{uri: `${IMAGE_URL}${item?.image?.url}`}}
+          style={{height: mvs(160), width: '80%'}}
+        />
       </View>
       <Row style={{paddingHorizontal: mvs(20), marginBottom: mvs(20)}}>
-        <Medium label={'today'} color={colors.lightGray} />
+        <Medium label={time + ''} color={colors.lightGray} />
         <Medium label={`Seller: Sportmans's guide`} color={colors.lightGray} />
       </Row>
       <Row style={{...styles.bottom}}>
@@ -79,7 +69,7 @@ const ProductDetailsCard = ({style, item, onPress = () => {}}) => {
           <ImageBackground source={Price} style={styles.price}>
             <View style={styles.circle}></View>
             <Regular
-              label={'$2205.00'}
+              label={'$' + item?.price}
               fontSize={mvs(10)}
               color={colors.white}
             />
@@ -87,9 +77,8 @@ const ProductDetailsCard = ({style, item, onPress = () => {}}) => {
         </Row>
         <Bold
           style={{marginTop: mvs(10)}}
-          label={
-            'Compliant 5.56X45mm NATO 20” 10+1 Black - $2205 (Add To Cart)'
-          }
+          label={item?.title}
+          numberOfLines={2}
           color={colors.black}
           fontSize={mvs(15)}
         />
