@@ -15,21 +15,11 @@ const Splash = props => {
 
   React.useEffect(() => {
     (async () => {
-      let screen: 'Login' | 'DrawerNavigation' = 'Login';
-      SERVICES.getItem(STORAGEKEYS.userId).then((userId: any) => {
-
-        if (userId) {
-          screen = 'DrawerNavigation';
-          // dispatch(getUserData(userId));
-        }
-        setTimeout(() => {
-          navigation?.replace("DrawerNavigation");
-        }, 2000);
-      })
+      setTimeout(() => {
+        navigation?.replace("DrawerNavigation");
+      }, 2000);
     })()
   }, []);
-
-
   return (
     <View style={{ ...styles.container }}>
       <ImageBackground source={bg} style={{ height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
@@ -40,3 +30,5 @@ const Splash = props => {
   );
 };
 export default Splash;
+
+

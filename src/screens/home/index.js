@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, TouchableOpacity, View} from 'react-native';
-import {CaretDown} from '../../assets/icons';
+import {FlatList, TouchableOpacity, View, Modal} from 'react-native';
+import {CaretDown, Line} from '../../assets/icons';
+
 import CustomHeader from '../../components/atoms/headers/custom-header';
 import {Row} from '../../components/atoms/row';
 import CategoryItem from '../../components/category-item/category-item';
@@ -13,6 +14,9 @@ import {useFocusEffect} from '@react-navigation/native';
 import {BASE_URL} from '../../API/urls';
 import {Loader} from '../../components/atoms/loader';
 import EmptyView from '../../components/EmptyView/empty-view';
+import {Text} from 'react-native';
+import {colors} from '../../config/colors';
+import {PrimaryRadioButton} from '../../components/atoms/buttons/primary-radio-button';
 
 const Home = props => {
   const {navigation, route} = props;
@@ -21,9 +25,11 @@ const Home = props => {
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [sort, setSort] = useState('Date (newest first)');
+  const [modalVisible, setModalVisible] = useState(false);
   useFocusEffect(
     React.useCallback(() => {
-      getCategories();
+      // getCategories();
       if (route?.params?.type == undefined || route?.params?.type == 'Home') {
         getHomeProducts('products/index');
       } else if (route.params?.type == 'Top this week') {
@@ -87,18 +93,19 @@ const Home = props => {
       <CustomHeader
         title={route?.params?.type ? route?.params?.type : 'Home'}
         onMenuClick={() => navigation?.toggleDrawer()}
+        onThreeLinesMenuClick={() => setModalVisible(!modalVisible)}
       />
       {loading ? (
         <Loader />
       ) : (
         <View style={styles.body}>
-          <Row style={{alignItems: 'center'}}>
+          {/* <Row style={{alignItems: 'center'}}>
             <Bold label={'SHOWING ALL CATEGORIES'} fontSize={mvs(14)} />
             <TouchableOpacity
               onPress={() => setShowCategories(!showCategories)}>
               <CaretDown />
             </TouchableOpacity>
-          </Row>
+          </Row> */}
           {showCategories ? (
             <FlatList
               numColumns={2}
@@ -128,7 +135,7 @@ const Home = props => {
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{
                 paddingBottom: mvs(40),
-                marginTop: mvs(15),
+                marginTop: mvs(1),
               }}
               data={data}
               renderItem={({item}) => (
@@ -147,6 +154,40 @@ const Home = props => {
           )}
         </View>
       )}
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}>
+        <View style={styles.menu}>
+          <PrimaryRadioButton
+            onPress={() => {
+              setSort('Date (newest first)');
+              setModalVisible(false);
+            }}
+            isSelected={sort == 'Date (newest first)'}
+            title={'Date (newest first)'}
+          />
+          <View style={styles.line}></View>
+          <PrimaryRadioButton
+            onPress={() => {
+              setSort('Rating');
+              setModalVisible(false);
+            }}
+            isSelected={sort == 'Rating'}
+            title={'Rating'}
+          />
+          <View style={styles.line}></View>
+          <PrimaryRadioButton
+            onPress={() => {
+              setSort('Price (lowest price)');
+              setModalVisible(false);
+            }}
+            isSelected={sort == 'Price (lowest price)'}
+            title={'Price (lowest price)'}
+          />
+        </View>
+      </Modal>
     </View>
   );
 };

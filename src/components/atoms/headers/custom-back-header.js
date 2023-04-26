@@ -33,9 +33,9 @@ const CustomBackHeader = ({showBack = false}) => {
       <View style={{alignItems: 'center', flex: 1}}>
         <HeaderLogo />
       </View>
-      <TouchableOpacity style={{marginHorizontal: mvs(10)}}>
+      {/* <TouchableOpacity style={{marginHorizontal: mvs(10)}}>
         <Stand />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </ImageBackground>
   );
 };

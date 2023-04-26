@@ -31,9 +31,11 @@ import Medium from '../../typography/medium-text';
 import Regular from '../../typography/regular-text';
 import axios from 'axios';
 import {BASE_URL} from '../../API/urls';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const CustomDrawerContent = props => {
   const [search, setSearch] = useState('');
   const [products, setProducts] = useState([]);
+  const [user, setUser] = useState({});
   const [categories, setCategories] = useState([]);
   const onSearch = async val => {
     setSearch(val);
@@ -42,8 +44,16 @@ const CustomDrawerContent = props => {
     setProducts(res?.data?.search_products);
   };
   useEffect(() => {
+    getUser();
     getCategories();
   }, []);
+  const getUser = async () => {
+    const u = await AsyncStorage.getItem('@user');
+    var us = JSON.parse(u);
+    if (us?.id) {
+      setUser(us);
+    }
+  };
   const getCategories = async () => {
     //setLoading(true);
     axios
@@ -54,6 +64,17 @@ const CustomDrawerContent = props => {
       .catch(error => {
         console.log(error);
       });
+  };
+  const onAuth = async () => {
+    if (user?.id) {
+      await AsyncStorage.clear();
+      props?.navigation?.replace('Login');
+    } else props?.navigation?.navigate('Login');
+  };
+  const onWatch = async () => {
+    if (user?.id) {
+      props?.navigation?.navigate('WatchList');
+    } else props?.navigation?.navigate('Login');
   };
   return (
     <View
@@ -298,7 +319,7 @@ const CustomDrawerContent = props => {
                 padding: mvs(10),
                 backgroundColor: colors.secondary,
               }}
-              onPress={() => props?.navigation?.navigate('Login')}>
+              onPress={() => onWatch()}>
               <Row style={{alignItems: 'center'}}>
                 <Medium label={'WATCHLIST'} size={mvs(14)} />
                 <SVGS.Watchlist />
@@ -317,9 +338,9 @@ const CustomDrawerContent = props => {
                 padding: mvs(10),
                 backgroundColor: colors.secondary,
               }}
-              onPress={() => props?.navigation?.navigate('Login')}>
+              onPress={() => onAuth()}>
               <Row style={{alignItems: 'center'}}>
-                <Medium label={'LOGIN'} size={mvs(14)} />
+                <Medium label={user?.id ? 'LOGOUT' : 'LOGIN'} size={mvs(14)} />
                 <SVGS.LoginIcon />
               </Row>
             </TouchableOpacity>

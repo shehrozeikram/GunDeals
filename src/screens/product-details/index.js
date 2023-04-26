@@ -14,12 +14,15 @@ import styles from './styles';
 import {BASE_URL} from '../../API/urls';
 import axios from 'axios';
 import {Loader} from '../../components/atoms/loader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const ProductDetails = props => {
   const {navigation, route} = props;
   const {id} = route?.params;
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
+  const [user, setUser] = useState({});
   useEffect(() => {
+    getUser();
     getProduct();
   }, []);
   const getProduct = async () => {
@@ -35,6 +38,36 @@ const ProductDetails = props => {
         setLoading(false);
       });
   };
+  const addToWatch = async () => {
+    if (!user?.id) {
+      props?.navigation.navigate('Login');
+      return;
+    }
+    setLoading(true);
+    axios
+      .get(
+        BASE_URL +
+          'watchlist/add_to_watchlist?product_id=' +
+          product?.id +
+          '&user_id=' +
+          user?.id,
+      )
+      .then(response => {
+        setProduct(response?.data?.product);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
+  const getUser = async () => {
+    const u = await AsyncStorage.getItem('@user');
+    var us = JSON.parse(u);
+    if (us?.id) {
+      setUser(us);
+    }
+  };
   return loading ? (
     <Loader />
   ) : (
@@ -43,11 +76,14 @@ const ProductDetails = props => {
       <ScrollView
         contentContainerStyle={{flexGrow: 1}}
         showsVerticalScrollIndicator={false}>
-        <ProductDetailsCard item={product} />
+        <ProductDetailsCard item={product} onWatch={() => addToWatch()} />
         <View style={styles.div} />
         <View style={styles.descriptionView}>
           <Row style={{marginBottom: mvs(20)}}>
-            <Medium label={'Category: Accessories'} color={colors.lightGray} />
+            <Medium
+              label={'Category: ' + product?.category?.name}
+              color={colors.lightGray}
+            />
             {product?.caliber && (
               <Medium
                 label={`Caliber: ` + product?.caliber}

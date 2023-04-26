@@ -10,7 +10,7 @@ type props = {
     disabled?: boolean
     loading?: boolean
     textStyle?: StyleProp<ViewStyle>
-    containerStyle?: StyleProp<ViewStyle>
+    containerStyle?: StyleProp<ViewStyle>,
 }
 export const PlusButton = (props: props) => {
     const {
@@ -32,11 +32,12 @@ export const PrimaryButton = (props: props) => {
         loading,
         textStyle,
         containerStyle,
+       
     } = props;
     return (
         <TouchableOpacity disabled={disabled || loading} style={[styles.primaryContainer, containerStyle, { backgroundColor: `${colors.primary}${disabled ? '50' : ''}`, }]} onPress={onPress}>
             {loading ?
-                <Loader />
+                <Loader color={colors.white}/>
                 : <Regular style={[styles.primaryText, textStyle]} label={title} />}
         </TouchableOpacity>
     )

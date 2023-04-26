@@ -28,23 +28,21 @@ const DrawerProduct = ({style, item, onPress = () => {}}) => {
             numberOfLines={1}
           />
         </Row>
-        {item?.body && (
-          <Bold
-            label={item?.body}
-            style={{marginTop: mvs(3)}}
-            fontSize={mvs(12)}
-            color={colors.black}
-            numberOfLines={3}
-          />
-        )}
-        {item?.caliber && (
-          <Bold
-            label={'Caliber: ' + item?.caliber}
-            style={{marginTop: mvs(3)}}
-            fontSize={mvs(12)}
-            color={colors.black}
-          />
-        )}
+
+        <Bold
+          label={item?.body}
+          style={{marginTop: mvs(3)}}
+          fontSize={mvs(12)}
+          color={colors.black}
+          numberOfLines={3}
+        />
+        <Bold
+          label={'Caliber: ' + item?.caliber}
+          style={{marginTop: mvs(3)}}
+          fontSize={mvs(12)}
+          color={colors.black}
+        />
+
         <Bold
           label={'AKfrom: $' + item?.price}
           style={{marginTop: mvs(3)}}

@@ -1,5 +1,11 @@
 import React from 'react';
-import {Image, ImageBackground, StyleSheet, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Rating} from 'react-native-elements';
 import {Like, UnLike, Watch} from '../../assets/icons';
 import {Gun1, Price} from '../../assets/images';
@@ -11,7 +17,7 @@ import Regular from '../../typography/regular-text';
 import {Row} from '../atoms/row';
 import moment from 'moment';
 import {IMAGE_URL} from '../../API/urls';
-const ProductDetailsCard = ({style, item, onPress = () => {}}) => {
+const ProductDetailsCard = ({style, item, onWatch}) => {
   const time = moment(item?.created_at).fromNow();
   return (
     <View style={{...styles.main, ...style}}>
@@ -33,22 +39,22 @@ const ProductDetailsCard = ({style, item, onPress = () => {}}) => {
         <Medium label={`Seller: Sportmans's guide`} color={colors.lightGray} />
       </Row>
       <Row style={{...styles.bottom}}>
-        <Row style={styles.bottomItem}>
+        <TouchableOpacity style={styles.bottomItem}>
           <Like />
           <Regular label={'5 votes'} style={styles.bottomItemTxt} />
-        </Row>
-        <Row style={styles.bottomItem}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.bottomItem}>
           <UnLike />
           <Regular label={'5 votes'} style={styles.bottomItemTxt} />
-        </Row>
-        <Row style={styles.bottomItem}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.bottomItem} onPress={onWatch}>
           <Watch />
           <Regular label={'Watch'} style={styles.bottomItemTxt} />
-        </Row>
-        <Row style={[styles.bottomItem, {borderRightWidth: 0}]}>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.bottomItem, {borderRightWidth: 0}]}>
           <Watch />
           <Regular label={'Share'} style={styles.bottomItemTxt} />
-        </Row>
+        </TouchableOpacity>
       </Row>
       <View style={{backgroundColor: colors.white, padding: mvs(20)}}>
         <Row style={{alignItems: 'center'}}>
@@ -123,6 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: mvs(12),
     paddingHorizontal: mvs(5),
+    flexDirection: 'row',
   },
   bottomItemTxt: {
     marginHorizontal: mvs(7),

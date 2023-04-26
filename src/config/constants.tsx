@@ -4,6 +4,7 @@ export const COLLECTIONS = {
 }
 export const STORAGEKEYS = {
     userId: '@userId',
+    user:"@user",
 };
 export const CATEGORIES = [
     // export { default as ammo } from './ammo.svg',

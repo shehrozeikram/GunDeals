@@ -35,14 +35,12 @@ const SimilarProduct = ({style, item}) => {
             numberOfLines={1}
           />
         </Row>
-        {item?.mpn && <Bold label={'MPN: ' + item?.mpn} fontSize={mvs(12)} />}
+        <Bold label={'MPN: ' + item?.mpn} fontSize={mvs(12)} />
         <Bold label={'Brand: ' + item?.brand} fontSize={mvs(12)} />
-        {item?.caliber && (
-          <Bold label={'Caliber: ' + item?.caliber} fontSize={mvs(12)} />
-        )}
-        {item?.capacity && (
-          <Bold label={'Capacity: ' + item?.capacity} fontSize={mvs(12)} />
-        )}
+
+        <Bold label={'Caliber: ' + item?.caliber} fontSize={mvs(12)} />
+
+        <Bold label={'Capacity: ' + item?.capacity} fontSize={mvs(12)} />
       </View>
     </View>
   );

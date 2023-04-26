@@ -13,6 +13,7 @@ import Splash from '../screens/splash';
 import RootStackParamList from '../types/navigation-types/root-stack';
 import { horizontalAnimation } from '../utils';
 import DrawerNavigation from './drawer-navigation';
+import WatchList from '../screens/watchlist';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
@@ -32,6 +33,7 @@ export const RootNavigator = () => {
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="ProductDetails" component={ProductDetails} />
         <Stack.Screen name="InventoryDetails" component={InventoryDetails} />
+        <Stack.Screen name="WatchList" component={WatchList} />
       </Stack.Navigator>
     </SafeAreaView>
   );
