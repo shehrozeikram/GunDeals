@@ -32,6 +32,7 @@ import Regular from '../../typography/regular-text';
 import axios from 'axios';
 import {BASE_URL} from '../../API/urls';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
 const CustomDrawerContent = props => {
   const [search, setSearch] = useState('');
   const [products, setProducts] = useState([]);
@@ -43,10 +44,20 @@ const CustomDrawerContent = props => {
     console.log('API SEARCH RESPONSE ===> ', res?.data?.search_products);
     setProducts(res?.data?.search_products);
   };
-  useEffect(() => {
-    getUser();
-    getCategories();
-  }, []);
+  // useEffect(() => {
+  //   getUser();
+  //   getCategories();
+  // }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getUser();
+      getCategories();
+      // Return a cleanup function to be called when the screen loses focus
+      return () => {
+        console.log('Screen unfocused');
+      };
+    }, []),
+  );
   const getUser = async () => {
     const u = await AsyncStorage.getItem('@user');
     var us = JSON.parse(u);

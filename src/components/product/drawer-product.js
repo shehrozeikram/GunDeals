@@ -13,7 +13,11 @@ const DrawerProduct = ({style, item, onPress = () => {}}) => {
     <TouchableOpacity onPress={onPress} style={{...styles.main}}>
       <View style={styles.image}>
         <Image
-          source={{uri: `${IMAGE_URL}${item?.image?.url}`}}
+          source={{
+            uri: item?.image?.url
+              ? `${IMAGE_URL}${item?.image?.url}`
+              : item?.image_link,
+          }}
           style={{height: mvs(45), width: mvs(65)}}
         />
       </View>
@@ -30,11 +34,15 @@ const DrawerProduct = ({style, item, onPress = () => {}}) => {
         </Row>
 
         <Bold
-          label={item?.body}
+          label={
+            item?.description
+              ? item?.description?.toLocaleLowerCase()
+              : item?.body?.toLocaleLowerCase()
+          }
           style={{marginTop: mvs(3)}}
           fontSize={mvs(12)}
           color={colors.black}
-          numberOfLines={3}
+          numberOfLines={2}
         />
         <Bold
           label={'Caliber: ' + item?.caliber}

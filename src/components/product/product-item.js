@@ -8,10 +8,11 @@ import {mvs} from '../../config/metrices';
 import Bold from '../../typography/bold-text';
 import Regular from '../../typography/regular-text';
 import {Row} from '../atoms/row';
-import {BASE_URL, IMAGE_URL} from '../../API/urls';
+import {IMAGE_URL} from '../../API/urls';
 import moment from 'moment';
-const ProductItem = ({style, item}) => {
+const ProductItem = ({style, item, index = 0}) => {
   const time = moment(item?.created_at).fromNow();
+
   return (
     <View style={[styles.main]}>
       <ImageBackground source={Price} style={styles.price}>
@@ -32,7 +33,11 @@ const ProductItem = ({style, item}) => {
         />
         <Row style={{alignItems: 'center', marginTop: mvs(10)}}>
           <Image
-            source={{uri: `${IMAGE_URL}${item?.image?.url}`}}
+            source={{
+              uri: item?.image?.url
+                ? `${IMAGE_URL}${item?.image?.url}`
+                : item?.image_link,
+            }}
             style={{height: mvs(70), width: mvs(103)}}
           />
           <View style={{flex: 1, paddingLeft: mvs(20)}}>
@@ -43,7 +48,11 @@ const ProductItem = ({style, item}) => {
             />
             <Bold
               style={{marginTop: mvs(-3)}}
-              label={item?.body?.toLocaleLowerCase()}
+              label={
+                item?.description
+                  ? item?.description?.toLocaleLowerCase()
+                  : item?.body?.toLocaleLowerCase()
+              }
               color={colors.black}
               fontSize={mvs(10)}
               numberOfLines={2}
@@ -81,7 +90,7 @@ const ProductItem = ({style, item}) => {
           <Row style={{alignItems: 'center'}}>
             <Comment />
             <Regular
-              label={'4'}
+              label={item?.total_comments ? item?.total_comments + '' : '0'}
               fontSize={mvs(10)}
               color={colors.lightGray}
               style={{marginLeft: mvs(7)}}
@@ -117,7 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     top: mvs(6),
-    right: mvs(1),
+    right: mvs(-8),
     zIndex: 1,
     flexDirection: 'row',
     paddingHorizontal: mvs(7),

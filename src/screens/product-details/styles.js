@@ -5,15 +5,17 @@ import {colors} from '../../config/colors';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.F5F5F6,
+    backgroundColor: colors.bg,
   },
   contentContainerStyle: {
     flex: 1,
     padding: mvs(20),
   },
   body: {
-    backgroundColor: colors.F5F5F6,
-    paddingTop: mvs(20),
+    //flex: 1,
+    // paddingVertical: mvs(12),
+    // paddingHorizontal: mvs(21),
+    backgroundColor: colors.bg,
   },
   descriptionView: {
     flex: 1,
@@ -21,16 +23,9 @@ const styles = StyleSheet.create({
     padding: mvs(20),
   },
   div: {
-    height: 1.4,
-    backgroundColor: colors.lightGray,
-    marginHorizontal: mvs(0),
-  },
-  image: {
-    margin: mvs(20),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.white,
-    padding: mvs(20),
+    height: 1,
+    backgroundColor: colors.border,
+    marginHorizontal: mvs(20),
   },
   btn: {
     backgroundColor: colors.primary,
@@ -45,6 +40,17 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: mvs(15),
     backgroundColor: colors.white,
+  },
+  police: {
+    borderRadius: mvs(30),
+    height: mvs(45),
+    backgroundColor: '#E4E8EB',
+    alignSelf: 'center',
+    marginVertical: mvs(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: mvs(15),
+    marginBottom: mvs(18),
   },
   active: {
     flex: 1,
@@ -62,12 +68,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: mvs(10),
     borderWidth: 0.6,
-    borderColor: colors.lightGray,
-  },
-  pricesView: {
-    marginHorizontal: mvs(15),
-    //paddingBottom: mvs(15),
-    borderWidth: 0.8,
     borderColor: colors.lightGray,
   },
 });

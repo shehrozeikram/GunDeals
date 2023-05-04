@@ -30,7 +30,11 @@ const ProductDetailsCard = ({style, item, onWatch}) => {
           padding: mvs(20),
         }}>
         <Image
-          source={{uri: `${IMAGE_URL}${item?.image?.url}`}}
+          source={{
+            uri: item?.image?.url
+              ? `${IMAGE_URL}${item?.image?.url}`
+              : item?.image_link,
+          }}
           style={{height: mvs(160), width: '80%'}}
         />
       </View>
@@ -41,11 +45,17 @@ const ProductDetailsCard = ({style, item, onWatch}) => {
       <Row style={{...styles.bottom}}>
         <TouchableOpacity style={styles.bottomItem}>
           <Like />
-          <Regular label={'5 votes'} style={styles.bottomItemTxt} />
+          <Regular
+            label={item?.total_likes ? item?.total_likes : 0 + ' votes'}
+            style={styles.bottomItemTxt}
+          />
         </TouchableOpacity>
         <TouchableOpacity style={styles.bottomItem}>
           <UnLike />
-          <Regular label={'5 votes'} style={styles.bottomItemTxt} />
+          <Regular
+            label={item?.total_unlikes ? item?.total_unlikes : 0 + ' votes'}
+            style={styles.bottomItemTxt}
+          />
         </TouchableOpacity>
         <TouchableOpacity style={styles.bottomItem} onPress={onWatch}>
           <Watch />
@@ -67,7 +77,7 @@ const ProductDetailsCard = ({style, item, onWatch}) => {
               style={{alignItems: 'flex-start'}}
             />
             <Regular
-              label={'( 2 votes )'}
+              label={`(${item?.total_likes ? item?.total_likes : 0}  votes )`}
               style={{marginHorizontal: mvs(10)}}
               color={colors.lightGray}
             />

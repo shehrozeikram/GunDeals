@@ -1,25 +1,20 @@
+import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {FlatList, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, TouchableOpacity, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {CartIcon} from '../../assets/icons';
+import {BASE_URL, IMAGE_URL} from '../../API/urls';
 import CustomBackHeader from '../../components/atoms/headers/custom-back-header';
+import {Loader} from '../../components/atoms/loader';
 import {Row} from '../../components/atoms/row';
-import ProductDetailsCard from '../../components/product-details-card';
+import SimilarProduct from '../../components/product/similar-product';
 import {colors} from '../../config/colors';
 import {mvs} from '../../config/metrices';
-import TopTabNavigator from '../../navigation/top-tab-navigation';
+import Bold from '../../typography/bold-text';
 import Medium from '../../typography/medium-text';
 import Regular from '../../typography/regular-text';
-import styles from './styles';
-import {Image} from 'react-native';
-import {Gun1} from '../../assets/images';
-import Bold from '../../typography/bold-text';
-import Inventory from './inventory';
 import Deals from './deals';
-import SimilarProduct from '../../components/product/similar-product';
-import axios from 'axios';
-import {BASE_URL, IMAGE_URL} from '../../API/urls';
-import ProductItem from '../../components/product/product-item';
+import Inventory from './inventory';
+import styles from './styles';
 const InventoryDetails = props => {
   const {navigation, route} = props;
   const {id} = route.params;
@@ -28,10 +23,13 @@ const InventoryDetails = props => {
   const [similarProducts, setSimilarProducts] = useState([]);
   const [inventoryProducts, setInventoryProducts] = useState([]);
   const [deals, setDeals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [outOfStocks, setOutOfStocks] = useState([]);
   useEffect(() => {
     getInventory();
   }, []);
   const getInventory = async () => {
+    setLoading(true);
     var res = await axios.get(
       BASE_URL + 'products/live_inventory_search?id=' + id,
     );
@@ -41,9 +39,13 @@ const InventoryDetails = props => {
       setSimilarProducts(res?.data?.similar_products);
       setInventoryProducts(res?.data?.live_inventory_products);
       setDeals(res?.data?.deals);
+      setOutOfStocks(res?.data?.out_of_stock_products);
     }
+    setLoading(false);
   };
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <View style={{flex: 1}}>
       <CustomBackHeader
         showBack
@@ -51,11 +53,15 @@ const InventoryDetails = props => {
         onMenuClick={() => navigation?.toggleDrawer()}
       />
       <ScrollView
-        contentContainerStyle={{flexGrow: 1}}
+        contentContainerStyle={{flexGrow: 1, paddingBottom: mvs(20)}}
         showsVerticalScrollIndicator={false}>
         <View style={styles.image}>
           <Image
-            source={{uri: `${IMAGE_URL}${product?.image?.url}`}}
+            source={{
+              uri: product?.image?.url
+                ? `${IMAGE_URL}${product?.image?.url}`
+                : product?.image_link,
+            }}
             resizeMode="contain"
             style={{height: mvs(100), width: '80%'}}
           />
@@ -133,7 +139,7 @@ const InventoryDetails = props => {
           </TouchableOpacity>
         </Row>
         {inventoryTab ? (
-          <Inventory data={[1, 2, 3, 4, 4]} />
+          <Inventory data={inventoryProducts} outOfStocks={outOfStocks} />
         ) : (
           <Deals list={similarProducts} />
         )}

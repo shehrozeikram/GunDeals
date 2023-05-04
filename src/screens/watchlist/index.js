@@ -11,6 +11,7 @@ import ProductItem from '../../components/product/product-item';
 import {mvs} from '../../config/metrices';
 import styles from './styles';
 import CustomBackHeader from '../../components/atoms/headers/custom-back-header';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WatchList = props => {
   const {navigation, route} = props;
@@ -18,15 +19,18 @@ const WatchList = props => {
   const [loading, setLoading] = useState(false);
   useFocusEffect(
     React.useCallback(() => {
-      getHomeProducts('products/index');
+      getHomeProducts('watchlist/fetch_watchlist?user_id=');
     }, []),
   );
   const getHomeProducts = async url => {
+    const u = await AsyncStorage.getItem('@user');
+    var us = JSON.parse(u);
+    console.log('URL is ==> ', BASE_URL + url + us?.id);
     setLoading(true);
     axios
-      .get(BASE_URL + url)
+      .get(BASE_URL + url + us?.id)
       .then(response => {
-        setData(response?.data?.products);
+        setData(response?.data?.watchlist);
         setLoading(false);
       })
       .catch(error => {
@@ -58,7 +62,7 @@ const WatchList = props => {
                       id: item?.id,
                     })
                   }>
-                  <ProductItem item={item} />
+                  <ProductItem item={item?.product} />
                 </TouchableOpacity>
               )}
             />

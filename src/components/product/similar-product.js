@@ -23,7 +23,11 @@ const SimilarProduct = ({style, item}) => {
         />
       </ImageBackground>
       <Image
-        source={{uri: `${IMAGE_URL}${item?.image?.url}`}}
+        source={{
+          uri: item?.image?.url
+            ? `${IMAGE_URL}${item?.image?.url}`
+            : item?.image_link,
+        }}
         style={{height: mvs(65), width: mvs(120), marginVertical: mvs(10)}}
       />
       <View style={{marginTop: mvs(10)}}>
@@ -67,9 +71,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: mvs(7),
-    marginVertical: mvs(10),
+    marginVertical: mvs(5),
     alignSelf: 'flex-end',
-    marginRight: mvs(-10),
+    marginRight: mvs(-20),
   },
   image: {
     height: mvs(65),

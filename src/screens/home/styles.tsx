@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     body:{
         flex:1,
         paddingVertical:mvs(12),
-        paddingHorizontal:mvs(10)
+        //paddingHorizontal:mvs(10)
     },
     menu:{
         marginTop: 30,

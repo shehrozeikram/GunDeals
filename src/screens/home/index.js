@@ -1,23 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, TouchableOpacity, View, Modal} from 'react-native';
-import {CaretDown, Line} from '../../assets/icons';
-
+import {useFocusEffect} from '@react-navigation/native';
+import axios from 'axios';
+import React, {useState} from 'react';
+import {FlatList, Modal, TouchableOpacity, View} from 'react-native';
+import {BASE_URL} from '../../API/urls';
+import EmptyView from '../../components/EmptyView/empty-view';
+import {PrimaryRadioButton} from '../../components/atoms/buttons/primary-radio-button';
 import CustomHeader from '../../components/atoms/headers/custom-header';
-import {Row} from '../../components/atoms/row';
-import CategoryItem from '../../components/category-item/category-item';
+import {Loader} from '../../components/atoms/loader';
 import ProductItem from '../../components/product/product-item';
 import {mvs} from '../../config/metrices';
-import Bold from '../../typography/bold-text';
 import styles from './styles';
-import axios from 'axios';
-import {useFocusEffect} from '@react-navigation/native';
-import {BASE_URL} from '../../API/urls';
-import {Loader} from '../../components/atoms/loader';
-import EmptyView from '../../components/EmptyView/empty-view';
-import {Text} from 'react-native';
-import {colors} from '../../config/colors';
-import {PrimaryRadioButton} from '../../components/atoms/buttons/primary-radio-button';
-
+import {FadeInFlatList} from '@ja-ka/react-native-fade-in-flatlist';
 const Home = props => {
   const {navigation, route} = props;
   const [showCategories, setShowCategories] = useState(false);
@@ -56,6 +49,7 @@ const Home = props => {
       .get(BASE_URL + url)
       .then(response => {
         setData(response?.data?.products);
+        //setData(response?.data?.products);
         setLoading(false);
       })
       .catch(error => {
@@ -77,15 +71,20 @@ const Home = props => {
         setLoading(false);
       });
   };
-  const getCategories = async () => {
-    //setLoading(true);
+  const getFilterProducts = async key => {
+    setSort(key);
+    setModalVisible(false);
+    setLoading(true);
+
     axios
-      .get(BASE_URL + 'products/fetch_categories')
+      .get(BASE_URL + 'products/filter_products?' + key + '=true')
       .then(response => {
-        setCategories(response?.data?.categories);
+        setData(response?.data?.filter_products);
+        setLoading(false);
       })
       .catch(error => {
         console.log(error);
+        setLoading(false);
       });
   };
   return (
@@ -99,53 +98,23 @@ const Home = props => {
         <Loader />
       ) : (
         <View style={styles.body}>
-          {/* <Row style={{alignItems: 'center'}}>
-            <Bold label={'SHOWING ALL CATEGORIES'} fontSize={mvs(14)} />
-            <TouchableOpacity
-              onPress={() => setShowCategories(!showCategories)}>
-              <CaretDown />
-            </TouchableOpacity>
-          </Row> */}
-          {showCategories ? (
-            <FlatList
-              numColumns={2}
-              key={1}
+          {data?.length > 0 ? (
+            <FadeInFlatList
+              initialDelay={0}
               showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                paddingBottom: mvs(10),
-                marginTop: mvs(15),
-                marginHorizontal: mvs(-21),
-              }}
-              data={categories}
-              renderItem={({item, index}) => (
-                <CategoryItem
-                  onRadioPress={() => {
-                    setSelectedCategory(item);
-                    getCategoryProducts(item?.id);
-                  }}
-                  isSelected={item?.id == selectedCategory?.id}
-                  title={item?.name}
-                  key={index}
-                />
-              )}
-            />
-          ) : data?.length > 0 ? (
-            <FlatList
-              key="categoryList"
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                paddingBottom: mvs(40),
-                marginTop: mvs(1),
-              }}
+              contentContainerStyle={{paddingHorizontal: mvs(15)}}
+              durationPerItem={600}
+              parallelItems={1}
+              itemsToFadeIn={data?.length}
               data={data}
-              renderItem={({item}) => (
+              renderItem={({item, index}) => (
                 <TouchableOpacity
                   onPress={() =>
                     props?.navigation?.navigate('ProductDetails', {
                       id: item?.id,
                     })
                   }>
-                  <ProductItem item={item} />
+                  <ProductItem item={item} index={index} />
                 </TouchableOpacity>
               )}
             />
@@ -161,29 +130,20 @@ const Home = props => {
         onRequestClose={() => setModalVisible(false)}>
         <View style={styles.menu}>
           <PrimaryRadioButton
-            onPress={() => {
-              setSort('Date (newest first)');
-              setModalVisible(false);
-            }}
-            isSelected={sort == 'Date (newest first)'}
+            onPress={() => getFilterProducts('date_newest_first')}
+            isSelected={sort == 'date_newest_first'}
             title={'Date (newest first)'}
           />
           <View style={styles.line}></View>
           <PrimaryRadioButton
-            onPress={() => {
-              setSort('Rating');
-              setModalVisible(false);
-            }}
-            isSelected={sort == 'Rating'}
+            onPress={() => getFilterProducts('rating')}
+            isSelected={sort == 'rating'}
             title={'Rating'}
           />
           <View style={styles.line}></View>
           <PrimaryRadioButton
-            onPress={() => {
-              setSort('Price (lowest price)');
-              setModalVisible(false);
-            }}
-            isSelected={sort == 'Price (lowest price)'}
+            onPress={() => getFilterProducts('lowest_price')}
+            isSelected={sort == 'lowest_price'}
             title={'Price (lowest price)'}
           />
         </View>

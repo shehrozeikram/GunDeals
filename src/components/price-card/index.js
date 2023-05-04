@@ -3,28 +3,37 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { Price } from '../../assets/images';
-import { colors } from '../../config/colors';
-import { mvs } from '../../config/metrices';
+import {Price} from '../../assets/images';
+import {colors} from '../../config/colors';
+import {mvs} from '../../config/metrices';
 import Bold from '../../typography/bold-text';
 import Regular from '../../typography/regular-text';
-const PriceCard = ({ style, item, onPress = () => { } }) => {
+const PriceCard = ({
+  style,
+  title = 'Complaint',
+  price = '2203.00',
+  onPress = () => {},
+}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={{ ...styles.main, ...style }}>
+    <TouchableOpacity onPress={onPress} style={{...styles.main, ...style}}>
       <ImageBackground source={Price} style={styles.price}>
         <View style={styles.circle}></View>
-        <Regular label={'$2205.00'} fontSize={mvs(10)} color={colors.white} />
+        <Regular label={'$' + price} fontSize={mvs(10)} color={colors.white} />
       </ImageBackground>
-      <View style={{ flex: 1, justifyContent: 'space-between' }}>
+      <View style={{flex: 1, justifyContent: 'space-between'}}>
         <Bold
           style={{}}
-          label={'Compliant'}
+          label={title}
           color={colors.black}
           fontSize={mvs(14)}
         />
-        <Regular label={'$2205.00'} fontSize={mvs(12)} color={colors.lightGray} />
+        <Regular
+          label={'$' + price}
+          fontSize={mvs(12)}
+          color={colors.lightGray}
+        />
       </View>
     </TouchableOpacity>
   );
@@ -36,7 +45,7 @@ const styles = StyleSheet.create({
     height: mvs(80),
     paddingVertical: mvs(13),
     paddingHorizontal: mvs(10),
-    borderRadius: mvs(5),
+    // borderRadius: mvs(5),
   },
   price: {
     position: 'absolute',
@@ -48,7 +57,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: mvs(7),
-
   },
   circle: {
     height: mvs(8),
@@ -61,18 +69,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     paddingHorizontal: mvs(10),
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border
+    borderColor: colors.border,
   },
   bottomItem: {
     borderRightWidth: StyleSheet.hairlineWidth,
     alignItems: 'center',
     flex: 1,
     paddingVertical: mvs(12),
-    paddingHorizontal: mvs(5)
+    paddingHorizontal: mvs(5),
   },
   bottomItemTxt: {
     marginHorizontal: mvs(5),
     color: colors.lightGray,
     fontSize: mvs(12),
-  }
+  },
 });

@@ -2,8 +2,7 @@ import React from 'react';
 import {FlatList, View} from 'react-native';
 import DiscountCard from '../../components/discount-card';
 import styles from './styles';
-const ProductCoupons = props => {
-  const {navigation} = props;
+const ProductCoupons = ({productId}) => {
   return (
     <View style={styles.container}>
       <View style={styles.body}>
